@@ -1,6 +1,6 @@
 from functions2 import listToString
 
-player_hp = 200
+player_hp = 150
 player_hpmax = 50
 player_atk = 8
 pot = 2

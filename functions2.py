@@ -1,10 +1,9 @@
 import os
 import sys
-from termcolor import cprint,colored
+from termcolor import cprint
 import time
 from art import tprint
 import random
-import rainbowtext
 
 import variables2
 
@@ -41,7 +40,7 @@ def toplay():
 def start():
     tprint("vauvau    2", "tarty1")
     tprint("PRE-ALPHA    0.0.2", "tarty1")
-    cprint("NYOMJ MEG BÁRMIT AZ INDULÁSHOZ!")
+    cprint("NYOMJ MEG BÁRMIT AZ INDULÁSHOZ!", "green")
     input("> ")
 
 def rules():
@@ -68,8 +67,8 @@ def menu_layout2():
     cprint("ELIXÍR: " + str(variables2.elix) + " darab", "magenta")
     cprint("ARANY: " + str(variables2.gold) + "$", "yellow")
     draw()
+    
     cprint("0 - MENTÉS ÉS KILÉPÉS", "green")
-
     if variables2.y > 0:
         cprint("1 - ▲ FEL", "green")
     if variables2.x < variables2.x_len:
@@ -243,14 +242,14 @@ def attack():
     cprint (variables2.name + " " + str(variables2.player_atk) + " sebzést okozott " + variables2.mobs [variables2.enemy] ["name"] + "-nak.", "green")
     cprint (variables2.mobs [variables2.enemy] ["name"] + " " + str(variables2.enemy_atk) + " sebzést okozott " + variables2.name + "-nak.", "green")
     input("> ")
-    if variables2.enemy_hp <= 0:
-        loot()
     if variables2.player_hp <= 0:
         clear()
         cprint (variables2.mobs [variables2.enemy] ["name"] + " legyőzte " + variables2.name + "...", "red")
         cprint("VÉGE", "red")
         input("> ")
         quit()
+    if variables2.enemy_hp <= 0:
+        loot()
 
 def loot():
     clear()
