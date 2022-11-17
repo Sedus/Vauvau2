@@ -9,7 +9,7 @@ import rainbowtext
 import variables2
 
 def draw():
-    cprint ("==============================================================================")
+    cprint("==============================================================================", "red")
 
 def listToString(s):
     # initialize an empty string
