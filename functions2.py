@@ -4,6 +4,7 @@ from termcolor import cprint
 import time
 from art import tprint
 import random
+from time import sleep
 
 import variables2
 
@@ -36,59 +37,54 @@ def toplay():
     variables2.battle = False
     variables2.play = True
     variables2.battle = False
+    variables2.equipment = False
+
+def toequipment():
+    variables2.equipment = True
+    variables2.play = False
 
 def start():
     tprint("vauvau    2", "tarty1")
     tprint("PRE-ALPHA    0.0.2", "tarty1")
     cprint("NYOMJ MEG BÁRMIT AZ INDULÁSHOZ!", "green")
     input("> ")
+    clear()
 
 def rules():
-    cprint("Számok beírásával tudsz navigálni." + "\n" + "A számokhoz tartozó parancsot mellette írva találod.")
-    input("> ")
+    cprint("\nSzámok beírásával tudsz navigálni." + "\n" + "A számokhoz tartozó parancsot mellette írva találod.", "green")
 
 def menu_layout():
     clear()
 
     cprint("1 - ÚJ JÁTÉK", "green")
-    cprint("2 - JÁTÉK BETÖLTÉSE", "blue")
-    cprint("3 - SZABÁLYOK", "magenta")
-    cprint("4 - KILÉPÉS", "yellow")
+    cprint("2 - JÁTÉK BETÖLTÉSE", "green")
+    cprint("3 - SZABÁLYOK", "green")
+    cprint("4 - KILÉPÉS", "green")
 
     draw()
 
 def menu_layout2():
-    cprint("JELENLEGI POZÍCIÓ: " + variables2.biom[variables2.map[variables2.y][variables2.x]]["name"], "magenta")
+    cprint("JELENLEGI POZÍCIÓ: " + variables2.biom[variables2.map[variables2.y][variables2.x]]["name"], "green")
     draw()
-    cprint("NÉV: " + variables2.name, "blue")
+    cprint("NÉV: " + variables2.name, "green")
     cprint("ÉLET:" + "|♥♥♥♥♥♥♥♥♥♥|" + str(variables2.player_hp) + "/" + str(variables2.player_hpmax), "green")
-    cprint("SEBZÉS:" + "|¤¤¤¤¤¤¤¤¤¤|" + str(variables2.player_atk), "cyan")
-    cprint("GYÓGYITAL: " + str(variables2.pot) + " darab", "red")
-    cprint("ELIXÍR: " + str(variables2.elix) + " darab", "magenta")
-    cprint("ARANY: " + str(variables2.gold) + "$", "yellow")
+    cprint("SEBZÉS:" + "|¤¤¤¤¤¤¤¤¤¤|" + str(variables2.player_atk), "green")
+    cprint("GYÓGYITAL: " + str(variables2.pot) + " darab", "green")
+    cprint("ELIXÍR: " + str(variables2.elix) + " darab", "green")
+    cprint("ARANY: " + str(variables2.gold) + "$", "green")
     draw()
-    
-    cprint("0 - MENTÉS ÉS KILÉPÉS", "green")
-    if variables2.y > 0:
-        cprint("1 - ▲ FEL", "green")
-    if variables2.x < variables2.x_len:
-        cprint("2 - ► JOBBRA", "green")
-    if variables2.y < variables2.y_len:
-        cprint("3 - ▼ LE", "green")
-    if variables2.x > 0:
-        cprint("4 - ◄ BALRA", "green")
-    if variables2.pot > 0:
-        cprint("5 - GYÓGYITAL HASZNÁLATA (30HP)", "green")
-    if variables2.elix > 0:
-        cprint("6 - ELIXÍR HASZNÁLATA (MAXHP)", "green")
-    if variables2.map[variables2.y][variables2.x] == "bolt":
-        cprint("7 - BELÉPÉS", "green")
+
+def logprint():
     draw()
+    print("\n\n\n\n\n\n\n\n\n\n\n\n\n")
+    draw()
+    cprint("LEGUTÓBBI ESEMÉNYEK:", "green")
+    for result in variables2.loglist:
+        cprint("    " + result, "magenta")
 
 def heal(amount):
     variables2.player_hp += amount
-    cprint (variables2.name + " élete fel lett töltve " + str(variables2.player_hp) + "-re!", "green")
-    input("> ")
+    variables2.loglist.insert(0, variables2.name + " élete fel lett töltve " + str(variables2.player_hp) + "-re!")
 
 def usepotion():
     if variables2.pot > 0:
@@ -99,7 +95,6 @@ def usepotion():
             heal(30)
     else:
         cprint("Nincs gyógyitalod!", "green")
-        input("> ")
 
 def useelixir():
     if variables2.elix > 0:
@@ -121,42 +116,42 @@ def createmap():
     variables2.map2[variables2.y][variables2.x] = "X"
 
 def print_map(map2):
-    clear()
     for i in map2:
-        cprint('\n' + '+---' * 7 + '+')
+        cprint('\n' + '+---' * 7 + '+', "red")
         for j in i:
-            cprint('| ', end='')
-            cprint(format(j) + " ", "red", end='')
-        cprint('|', end='')
-    cprint('\n' + '+---' * 7 + '+')
+            cprint('| ', "red", end='')
+            cprint(format(j) + " ", "green", end='')
+        cprint('|', "red", end='')
+    cprint('\n' + '+---' * 7 + '+', "red")
 
 def tiledraw():
     icon = variables2.biom [variables2.map[variables2.y][variables2.x]] ["icon"]
     variables2.map2[variables2.y][variables2.x] = icon
 
+def navmenuprint(list):
+    for i in list:
+        cprint (i, "green")
+    logprint()
+
 def moveleft():
-    if variables2.x > 0:
-        tiledraw()
-        variables2.x -= 1
-        variables2.map2[variables2.y][variables2.x] = "X" # kövi kurzor
+    tiledraw()
+    variables2.x -= 1
+    variables2.map2[variables2.y][variables2.x] = "X" # kövi kurzor
 
 def moveright():
-    if variables2.x < variables2.x_len:
-        tiledraw()
-        variables2.x += 1
-        variables2.map2[variables2.y][variables2.x] = "X" # kövi kurzor
+    tiledraw()
+    variables2.x += 1
+    variables2.map2[variables2.y][variables2.x] = "X" # kövi kurzor
 
 def moveup():
-    if variables2.y > 0:
-        tiledraw()
-        variables2.y -= 1
-        variables2.map2[variables2.y][variables2.x] = "X" # kövi kurzor
+    tiledraw()
+    variables2.y -= 1
+    variables2.map2[variables2.y][variables2.x] = "X" # kövi kurzor
 
 def movedown():
-    if variables2.y < variables2.y_len:
-        tiledraw()
-        variables2.y += 1
-        variables2.map2[variables2.y][variables2.x] = "X" # kövi kurzor
+    tiledraw()
+    variables2.y += 1
+    variables2.map2[variables2.y][variables2.x] = "X" # kövi kurzor
 
 def toshop():
     if variables2.map[variables2.y][variables2.x] == "bolt":
@@ -169,16 +164,16 @@ def shoplayout():
     draw()
     cprint("Üdvözöllek a boltban!")
     draw()
-    cprint("SEBZÉS:" + "|¤¤¤¤¤¤¤¤¤¤|" + str(variables2.player_atk), "cyan")
-    cprint("GYÓGYITAL: " + str(variables2.pot) + " darab", "red")
-    cprint("ELIXÍR: " +str(variables2.elix) + " darab", "magenta")
-    cprint("ARANY: " +str(variables2.gold) + "$", "yellow")
+    cprint("SEBZÉS:" + "|¤¤¤¤¤¤¤¤¤¤|" + str(variables2.player_atk), "green")
+    cprint("GYÓGYITAL: " + str(variables2.pot) + " darab", "green")
+    cprint("ELIXÍR: " +str(variables2.elix) + " darab", "green")
+    cprint("ARANY: " +str(variables2.gold) + "$", "green")
 
     draw()
-    cprint("1 - FEGYVER FEJLESZTÉSE (+2 SEBZÉS) - 10 ARANY", "cyan")
-    cprint("2 - GYÓGYITAL VÁSÁRLÁSA (+30HP) - 5 ARANY", "red")
-    cprint("3 - ELIXÍR VÁSÁRLÁSA (MAXHP) - 20 ARANY", "magenta")
-    cprint("4 - KILÉPÉS", "yellow")
+    cprint("1 - FEGYVER FEJLESZTÉSE (+2 SEBZÉS) - 10 ARANY", "green")
+    cprint("2 - GYÓGYITAL VÁSÁRLÁSA (+30HP) - 5 ARANY", "green")
+    cprint("3 - ELIXÍR VÁSÁRLÁSA (MAXHP) - 20 ARANY", "green")
+    cprint("4 - KILÉPÉS", "green")
     draw()
 
 def weaponupgrade():
@@ -210,7 +205,7 @@ def elixbuy():
 
 def spawnenemychance():
     if variables2.biom [variables2.map[variables2.y][variables2.x]] ["spawn_enemy"]:
-        if random.randint (1, 10) <= 100:
+        if random.randint (1, 10) >= 100:
             variables2.play = False
             variables2.battle = True
             variables2.enemy = random.choice(variables2.enemy_list)
@@ -255,5 +250,16 @@ def loot():
     clear()
     cprint (variables2.name + " legyőzte " + (variables2.mobs [variables2.enemy] ["name"] + "-ot!"), "green")
     cprint ("Találtál " + str(variables2.mobs [variables2.enemy] ["gold"]) + " aranyat!", "green")
+    variables2.gold += variables2.mobs [variables2.enemy] ["gold"]
     input("> ")
     toplay()
+
+def equipmentlayout():
+    clear()
+    draw()
+    cprint("1 - FEGYVER", "green")
+    cprint("2 - VÉRT", "green")
+    cprint("3 - SISAK", "green")
+    cprint("4 - CIPŐ", "green")
+    cprint("5 - TALIZMÁN", "green")
+    draw()
