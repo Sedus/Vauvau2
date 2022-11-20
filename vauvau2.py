@@ -8,7 +8,7 @@ from functions2 import *
 
 start()
 createmap()
-
+draw()
 variables2.list[variables2.counter] = ">" + variables2.list[variables2.counter] + "<"
 navmenuprint(variables2.list)
 
@@ -18,13 +18,14 @@ while True:
         while keyboard.is_pressed("down"): pass
         while keyboard.is_pressed("up"): pass
         while keyboard.is_pressed("enter"): pass
-
         if keypressed == "up":
             clear()
+            draw()
             navup(variables2.list, variables2.list2)
             navmenuprint(variables2.list)
         if keypressed == "down":
             clear()
+            draw()
             navdown(variables2.list, variables2.list2)
             navmenuprint(variables2.list)
         if keypressed == "enter":
@@ -53,7 +54,7 @@ while True:
         while keyboard.is_pressed("down"): pass
         while keyboard.is_pressed("up"): pass
         while keyboard.is_pressed("enter"): pass
-        
+
         if keypressed == "up":
             clear()
             print_map(variables2.map2)
@@ -109,21 +110,53 @@ while True:
                 print_map(variables2.map2)
                 menu_layout2()
                 navmenuprint(variables2.list3)
-            if variables2.counter == 7: #BELÉPÉS
+            if variables2.counter == 7: #FELSZERELÉS
+                equipmentlayout()
+            if variables2.counter == 8: #BELÉPÉS
                 toshop()
-    
+
     while variables2.shop:
-        shoplayout()
-        choice = input("# ")
+        if variables2.bool3:
+            clear()
+            shoplayout()
+            variables2.list7[variables2.counter] = ">" + variables2.list7[variables2.counter] + "<"
+            navmenuprint(variables2.list7)
+            variables2.bool3 = False
         
-        if choice == "1":
-            weaponupgrade()
-        elif choice == "2":
-            potbuy()
-        elif choice == "3":
-            elixbuy()
-        elif choice == "4":
-            toplay()
+        keypressed = keyboard.read_key()
+        while keyboard.is_pressed("down"): pass
+        while keyboard.is_pressed("up"): pass
+        while keyboard.is_pressed("enter"): pass
+        
+        if keypressed == "up":
+            clear()
+            shoplayout()
+            navup(variables2.list7, variables2.list8)
+            navmenuprint(variables2.list7)
+        if keypressed == "down":
+            clear()
+            shoplayout()
+            navdown(variables2.list7, variables2.list8)
+            navmenuprint(variables2.list7)
+        if keypressed == "enter":
+            if variables2.counter == 0:
+                weaponupgrade()
+                clear()
+                shoplayout()
+                navmenuprint(variables2.list7)
+            if variables2.counter == 1:
+                potbuy()
+                clear()
+                shoplayout()
+                navmenuprint(variables2.list7)
+            if variables2.counter == 2:
+                elixbuy()
+                clear()
+                shoplayout()
+                navmenuprint(variables2.list7)
+            if variables2.counter == 3: #KILÉPÉS
+                toplay()
+                variables2.loglist.clear()
 
     while variables2.battle:
         if variables2.bool2:
