@@ -47,7 +47,7 @@ def toequipment():
 
 def start():
     tprint("vauvau    2", "tarty1")
-    tprint("PRE-ALPHA    0.0.2", "tarty1")
+    tprint("PRE-ALPHA    0.0.3", "tarty1")
     cprint("NYOMJ MEG BÁRMIT AZ INDULÁSHOZ!", "green")
     input("> ")
     clear()
