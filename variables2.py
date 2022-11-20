@@ -1,5 +1,3 @@
-from functions2 import listToString
-
 player_hp = 250
 player_hpmax = 500
 player_atk = 8
