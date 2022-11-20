@@ -9,11 +9,8 @@ from functions2 import *
 start()
 createmap()
 
-counter = 0
-
-variables2.list[counter] = ">" + variables2.list[counter] + "<"
-for i in variables2.list:
-    cprint(i, "green")
+variables2.list[variables2.counter] = ">" + variables2.list[variables2.counter] + "<"
+navmenuprint(variables2.list)
 
 while True:
     while variables2.menu: #ÚJ JÁTÉK - JÁTÉK BETÖLTÉSE - SZABÁLYOK - KILÉPÉS
@@ -21,46 +18,37 @@ while True:
         while keyboard.is_pressed("down"): pass
         while keyboard.is_pressed("up"): pass
         while keyboard.is_pressed("enter"): pass
-        
+
         if keypressed == "up":
             clear()
-            variables2.list[counter] = variables2.list2[counter]
-            counter -= 1
-            variables2.list[counter] = "> " + variables2.list[counter] + " <"
-            for i in variables2.list:
-                cprint (i, "green")
+            navup(variables2.list, variables2.list2)
+            navmenuprint(variables2.list)
         if keypressed == "down":
             clear()
-            variables2.list[counter] = variables2.list2[counter]
-            counter += 1
-            variables2.list[counter] = "> " + variables2.list[counter] + " <"
-            for i in variables2.list:
-                cprint (i, "green")
+            navdown(variables2.list, variables2.list2)
+            navmenuprint(variables2.list)
         if keypressed == "enter":
-            if counter == 0: #ÚJ JÁTÉK
+            if variables2.counter == 0: #ÚJ JÁTÉK
                 toplay()
-            if counter == 1: #JÁTÉK BETÖLTÉSE
+            if variables2.counter == 1: #JÁTÉK BETÖLTÉSE
                 pass
-            if counter == 2: #SZABÁLYOK
+            if variables2.counter == 2: #SZABÁLYOK
                 rules()
                 sleep(3)
                 clear()
-                for i in variables2.list:
-                    cprint (i, "green")
-            if counter == 3: #KILÉPÉS
+                navmenuprint(variables2.list)
+            if variables2.counter == 3: #KILÉPÉS
                 quit()
     
     while variables2.play:
-        if bool:
+        if variables2.bool1:
             clear()
             print_map(variables2.map2)
             menu_layout2()
-            variables2.list3[counter] = ">" + variables2.list3[counter] + "<"
+            variables2.list3[variables2.counter] = ">" + variables2.list3[variables2.counter] + "<"
             navmenuprint(variables2.list3)
-            bool = False
+            variables2.bool1 = False
 
-            
-        # counter is 0
         keypressed = keyboard.read_key()
         while keyboard.is_pressed("down"): pass
         while keyboard.is_pressed("up"): pass
@@ -70,60 +58,60 @@ while True:
             clear()
             print_map(variables2.map2)
             menu_layout2()
-            variables2.list3[counter] = variables2.list4[counter]
-            counter -= 1
-            variables2.list3[counter] = "> " + variables2.list3[counter] + " <"
+            navup(variables2.list3, variables2.list4)
             navmenuprint(variables2.list3)
         if keypressed == "down":
             clear()
             print_map(variables2.map2)
             menu_layout2()
-            variables2.list3[counter] = variables2.list4[counter]
-            counter += 1
-            variables2.list3[counter] = "> " + variables2.list3[counter] + " <"
+            navdown(variables2.list3, variables2.list4)
             navmenuprint(variables2.list3)
         if keypressed == "enter":
-            if counter == 0: #MENTÉS ÉS KILÉPÉS
+            if variables2.counter == 0: #MENTÉS ÉS KILÉPÉS
                 quit()
-            if counter == 1 and variables2.y > 0: #FEL
+            if variables2.counter == 1 and variables2.y > 0: #FEL
                 moveup()
                 spawnenemychance()
                 clear()
                 print_map(variables2.map2)
                 menu_layout2()
                 navmenuprint(variables2.list3)
-            if counter == 2 and variables2.x < variables2.x_len: #JOBBRA
+            if variables2.counter == 2 and variables2.x < variables2.x_len: #JOBBRA
                 moveright()
                 spawnenemychance()
                 clear()
                 print_map(variables2.map2)
                 menu_layout2()
                 navmenuprint(variables2.list3)
-            if counter == 3 and variables2.y < variables2.y_len: #LE
+            if variables2.counter == 3 and variables2.y < variables2.y_len: #LE
                 movedown()
                 spawnenemychance()
                 clear()
                 print_map(variables2.map2)
                 menu_layout2()
                 navmenuprint(variables2.list3)
-            if counter == 4 and variables2.x > 0: #BALRA
+            if variables2.counter == 4 and variables2.x > 0: #BALRA
                 moveleft()
                 spawnenemychance()
                 clear()
                 print_map(variables2.map2)
                 menu_layout2()
                 navmenuprint(variables2.list3)
-            if counter == 5: #GYÓGYITAL HASZNÁLATA
+            if variables2.counter == 5: #GYÓGYITAL HASZNÁLATA
                 usepotion()
                 clear()
                 print_map(variables2.map2)
                 menu_layout2()
                 navmenuprint(variables2.list3)
-            if counter == 6: #ELIXÍR HASZNÁLATA
+            if variables2.counter == 6: #ELIXÍR HASZNÁLATA
                 useelixir()
-            if counter == 7: #BELÉPÉS
+                clear()
+                print_map(variables2.map2)
+                menu_layout2()
+                navmenuprint(variables2.list3)
+            if variables2.counter == 7: #BELÉPÉS
                 toshop()
-
+    
     while variables2.shop:
         shoplayout()
         choice = input("# ")
@@ -138,16 +126,45 @@ while True:
             toplay()
 
     while variables2.battle:
-        battlelayout()
-        choice = input("# ")
+        if variables2.bool2:
+            clear()
+            battlelayout()
+            variables2.list5[variables2.counter] = ">" + variables2.list5[variables2.counter] + "<"
+            navmenuprint(variables2.list5)
+            variables2.bool2 = False
 
-        if choice == "1":
-            attack()
-        if choice == "2":
-            usepotion()
-        if choice == "3":
-            useelixir()
-
+        keypressed = keyboard.read_key()
+        while keyboard.is_pressed("down"): pass
+        while keyboard.is_pressed("up"): pass
+        while keyboard.is_pressed("enter"): pass
+        
+        if keypressed == "up":
+            clear()
+            battlelayout()
+            navup(variables2.list5, variables2.list6)
+            navmenuprint(variables2.list5)
+        if keypressed == "down":
+            clear()
+            battlelayout()
+            navdown(variables2.list5, variables2.list6)
+            navmenuprint(variables2.list5)
+        if keypressed == "enter":
+            if variables2.counter == 0:
+                attack()
+                clear()
+                battlelayout()
+                navmenuprint(variables2.list5)
+            if variables2.counter == 1:
+                usepotion()
+                clear()
+                battlelayout()
+                navmenuprint(variables2.list5)
+            if variables2.counter == 2:
+                useelixir()
+                clear()
+                battlelayout()
+                navmenuprint(variables2.list5)
+    
     while variables2.equipment:
         equipmentlayout()
 

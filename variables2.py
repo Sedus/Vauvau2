@@ -1,6 +1,6 @@
 from functions2 import listToString
 
-player_hp = 150
+player_hp = 250
 player_hpmax = 500
 player_atk = 8
 pot = 3
@@ -8,12 +8,13 @@ elix = 1
 gold = 50
 x = 0
 y = 0
-name = "Faszosjozsi"
+name = "Faszosjózsi"
 tiles = ["síkság", "erdő", "híd", "hegység", "bolt", "béla", "küldetés"]
 y_len = 0
 x_len = 0
 enemy = ""
 loglist = []
+counter = 0
 
 menu = True
 play = False
@@ -93,3 +94,9 @@ list2 = ["ÚJ JÁTÉK", "JÁTÉK BETÖLTÉSE", "SZABÁLYOK", "KILÉPÉS"]
 
 list3 = ["MENTÉS ÉS KILÉPÉS", "▲ FEL", "► JOBBRA", "▼ LE", "◄ BALRA", "GYÓGYITAL HASZNÁLATA (30HP)", "ELIXÍR HASZNÁLATA (MAXHP)", "FELSZERELÉS", "BELÉPÉS"]
 list4 = ["MENTÉS ÉS KILÉPÉS", "▲ FEL", "► JOBBRA", "▼ LE", "◄ BALRA", "GYÓGYITAL HASZNÁLATA (30HP)", "ELIXÍR HASZNÁLATA (MAXHP)", "FELSZERELÉS", "BELÉPÉS"]
+
+list5 = ["TÁMADÁS", "GYÓGYITAL HASZNÁLATA (30HP)", "ELIXÍR HASZNÁLATA (MAXHP)"]
+list6 = ["TÁMADÁS", "GYÓGYITAL HASZNÁLATA (30HP)", "ELIXÍR HASZNÁLATA (MAXHP)"]
+
+bool1 = True
+bool2 = True
