@@ -6,10 +6,8 @@ from functions2 import *
 from ui import *
 import battle
 
-start()
+UI.start()
 createmap()
-os.system("cls")
-draw()
 
 while True:
     while UI.state == "menu": #ÚJ JÁTÉK - JÁTÉK BETÖLTÉSE - SZABÁLYOK - KILÉPÉS
@@ -17,26 +15,25 @@ while True:
         while keyboard.is_pressed("down"): pass
         while keyboard.is_pressed("up"): pass
         while keyboard.is_pressed("enter"): pass
+        
         if keypressed == "up":
             clear()
-            draw()
-            UI.navup(UI, UI.menu, UI.menu2)
-            UI.navmenuprint(UI, UI.menu)
+            UI.navup(UI.menu, UI.menu2)
+            UI.navmenuprint(UI.menu)
         if keypressed == "down":
             clear()
-            draw()
-            UI.navdown(UI, UI.menu, UI.menu2)
-            UI.navmenuprint(UI, UI.menu)
+            UI.navdown(UI.menu, UI.menu2)
+            UI.navmenuprint(UI.menu)
         if keypressed == "enter":
             if UI.counter == 0: #ÚJ JÁTÉK
-                UI.switchstate(UI, "play")
+                UI.switchstate("play")
             if UI.counter == 1: #JÁTÉK BETÖLTÉSE
                 pass
             if UI.counter == 2: #SZABÁLYOK
                 rules()
                 sleep(3)
                 clear()
-                UI.navmenuprint(UI, UI.menu)
+                UI.navmenuprint(UI.menu)
             if UI.counter == 3: #KILÉPÉS
                 quit()
     
@@ -50,14 +47,14 @@ while True:
             clear()
             print_map(variables2.map2)
             UI.menu_layout2()
-            UI.navup(UI, UI.play, UI.play2)
-            UI.navmenuprint(UI, UI.play)
+            UI.navup(UI.play, UI.play2)
+            UI.navmenuprint(UI.play)
         if keypressed == "down":
             clear()
             print_map(variables2.map2)
             UI.menu_layout2()
-            UI.navdown(UI, UI.play, UI.play2)
-            UI.navmenuprint(UI, UI.play)
+            UI.navdown(UI.play, UI.play2)
+            UI.navmenuprint(UI.play)
         if keypressed == "enter":
             if UI.counter == 0: #MENTÉS ÉS KILÉPÉS
                 quit()
@@ -104,7 +101,7 @@ while True:
             if UI.counter == 7: #FELSZERELÉS
                 equipmentlayout()
             if UI.counter == 8: #BELÉPÉS
-                UI.switchstate(UI, "shop")
+                UI.switchstate("shop")
 
     while UI.state == "shop":
         keypressed = keyboard.read_key()
@@ -115,31 +112,31 @@ while True:
         if keypressed == "up":
             clear()
             UI.shoplayout()
-            UI.navup(UI, UI.shop, UI.shop2)
-            UI.navmenuprint(UI, UI.shop)
+            UI.navup(UI.shop, UI.shop2)
+            UI.navmenuprint(UI.shop)
         if keypressed == "down":
             clear()
             UI.shoplayout()
-            UI.navdown(UI, UI.shop, UI.shop2)
-            UI.navmenuprint(UI, UI.shop)
+            UI.navdown(UI.shop, UI.shop2)
+            UI.navmenuprint(UI.shop)
         if keypressed == "enter":
             if UI.counter == 0:
                 weaponupgrade()
                 clear()
                 UI.shoplayout()
-                UI.navmenuprint(UI, UI.shop)
+                UI.navmenuprint(UI.shop)
             if UI.counter == 1:
                 potbuy()
                 clear()
                 UI.shoplayout()
-                UI.navmenuprint(UI, UI.shop)
+                UI.navmenuprint(UI.shop)
             if UI.counter == 2:
                 elixbuy()
                 clear()
                 UI.shoplayout()
-                UI.navmenuprint(UI, UI.shop)
+                UI.navmenuprint(UI.shop)
             if UI.counter == 3: #KILÉPÉS
-                UI.switchstate(UI, "play")
+                UI.switchstate("play")
 
     while UI.state == "battle":
         keypressed = keyboard.read_key()
@@ -150,26 +147,26 @@ while True:
         if keypressed == "up":
             clear()
             UI.battlelayout()
-            UI.navup(UI, UI.battle, UI.battle2)
-            UI.navmenuprint(UI, UI.battle)
+            UI.navup(UI.battle, UI.battle2)
+            UI.navmenuprint(UI.battle)
         if keypressed == "down":
             clear()
             UI.battlelayout()
-            UI.navdown(UI, UI.battle, UI.battle2)
-            UI.navmenuprint(UI, UI.battle)
+            UI.navdown(UI.battle, UI.battle2)
+            UI.navmenuprint(UI.battle)
         if keypressed == "enter":
             if UI.counter == 0:
                 attack()
                 clear()
                 UI.battlelayout()
-                UI.navmenuprint(UI, UI.battle)
+                UI.navmenuprint(UI.battle)
             if UI.counter == 1:
                 usepotion()
                 clear()
                 UI.battlelayout()
-                UI.navmenuprint(UI, UI.battle)
+                UI.navmenuprint(UI.battle)
             if UI.counter == 2:
                 useelixir()
                 clear()
                 UI.battlelayout()
-                UI.navmenuprint(UI, UI.battle)
+                UI.navmenuprint(UI.battle)

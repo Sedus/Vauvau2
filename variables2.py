@@ -1,12 +1,5 @@
-player_hp = 250
-player_hpmax = 500
-player_atk = 8
-pot = 3
-elix = 1
-gold = 100
 x = 0
 y = 0
-name = "Faszosjózsi"
 tiles = ["síkság", "erdő", "híd", "hegység", "bolt", "béla", "küldetés"]
 y_len = 0
 x_len = 0
