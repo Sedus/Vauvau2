@@ -1,10 +1,13 @@
+loglist = [] # MARADHAT
+
+
+
 x = 0
 y = 0
 tiles = ["síkság", "erdő", "híd", "hegység", "bolt", "béla", "küldetés"]
 y_len = 0
 x_len = 0
 enemy = ""
-loglist = []
 
 map = []
 map2 = [[' ', ' ', ' ', ' ', ' ', ' ', ' '],

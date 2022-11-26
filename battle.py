@@ -1,6 +1,6 @@
 import random
 import variables2
-import ui
+from ui import *
 
 def spawnenemychance():
     if variables2.biom [variables2.map[variables2.y][variables2.x]] ["spawn_enemy"]:
@@ -11,4 +11,25 @@ def spawnenemychance():
             variables2.mobs ["Slime"] ["name"] = random.choice(variables2.slime_names)
             variables2.enemy_hp = variables2.mobs [variables2.enemy] ["hp"]
             variables2.enemy_atk = variables2.mobs [variables2.enemy] ["atk"]
-            ui.switchstate("battle")
+            UI.switchstate("battle")
+
+def attack():
+    if variables2.enemy_hp <= Character.attack:
+        loot()
+    else:
+        variables2.enemy_hp -= Character.attack
+        Character.HP -= variables2.enemy_atk
+        variables2.loglist.insert(0, Character.name + " " + str(Character.attack) + " sebzést okozott " + variables2.mobs [variables2.enemy] ["name"] + "-nak.")
+        variables2.loglist.insert(0, variables2.mobs [variables2.enemy] ["name"] + " " + str(variables2.enemy_atk) + " sebzést okozott " + Character.name + "-nak.")
+        if Character.HP <= 0:
+            os.system("cls")
+            cprint (variables2.mobs [variables2.enemy] ["name"] + " legyőzte " + Character.name + "...", "red")
+            cprint("VÉGE", "red")
+            input("> ")
+            quit()
+
+def loot():
+    variables2.loglist.insert(0, Character.name + " legyőzte " + (variables2.mobs [variables2.enemy] ["name"] + "-ot!"))
+    variables2.loglist.insert(0, "Találtál " + str(variables2.mobs [variables2.enemy] ["gold"]) + " aranyat!")
+    Character.gold += variables2.mobs [variables2.enemy] ["gold"]
+    UI.switchstate("play")
