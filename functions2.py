@@ -12,29 +12,6 @@ from enemy import *
 def draw():
     cprint("==============================================================================", "red")
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 def listToString(s):
     # initialize an empty string
     str1 = ""
@@ -71,7 +48,7 @@ def logprint():
     draw()
     cprint("LEGUTÓBBI ESEMÉNYEK:", "green", attrs=["bold"])
     for result in variables2.loglist:
-        cprint("    " + result, "magenta", attrs=["bold"])
+        cprint("    " + str(result), "magenta", attrs=["bold"])
 
 def heal(amount):
     variables2.player_hp += amount
@@ -143,17 +120,6 @@ def movedown():
     variables2.map2[variables2.y][variables2.x] = "X" # kövi kurzor
     variables2.loglist.insert(0, variables2.name + " lefele lépett!\n")
 
-def shoplayout():
-    clear()
-    draw()
-    cprint("Üdvözöllek a boltban!", "green", attrs=["bold"])
-    draw()
-    cprint("SEBZÉS: " + str(variables2.player_atk), "green", attrs=["bold"])
-    cprint("GYÓGYITAL: " + str(variables2.pot) + " darab", "green", attrs=["bold"])
-    cprint("ELIXÍR: " +str(variables2.elix) + " darab", "green", attrs=["bold"])
-    cprint("ARANY: " +str(variables2.gold) + "$", "green", attrs=["bold"])
-    draw()
-
 def weaponupgrade():
     if variables2.gold >= 10:
         variables2.player_atk += 2
@@ -177,28 +143,6 @@ def elixbuy():
         variables2.loglist.insert(0, "Vettél egy elixírt!\n")
     else:
         variables2.loglist.insert(0, "Nincs elég aranyad!\n")
-
-def spawnenemychance():
-    if variables2.biom [variables2.map[variables2.y][variables2.x]] ["spawn_enemy"]:
-        if random.randint (1, 10) <= 100:
-            variables2.enemy = random.choice(variables2.enemy_list)
-            variables2.mobs ["Goblin"] ["name"] = random.choice(variables2.goblin_names)
-            variables2.mobs ["Ork"] ["name"] = random.choice(variables2.ork_names)
-            variables2.mobs ["Slime"] ["name"] = random.choice(variables2.slime_names)
-            variables2.enemy_hp = variables2.mobs [variables2.enemy] ["hp"]
-            variables2.enemy_atk = variables2.mobs [variables2.enemy] ["atk"]
-
-def battlelayout():
-    clear()
-    draw()
-    cprint("Győzd le " + variables2.mobs [variables2.enemy] ["name"] + "-ot!", "green", attrs=["bold"])
-    draw()
-    cprint(variables2.mobs [variables2.enemy] ["name"] + " élete: " + str(variables2.enemy_hp), "green", attrs=["bold"])
-    cprint(variables2.name + " élete: " + str(variables2.player_hp) + "/" + str(variables2.player_hpmax), "green", attrs=["bold"])
-    draw()
-    cprint("GYÓGYITAL: " + str(variables2.pot) + " darab", "green", attrs=["bold"])
-    cprint("ELIXÍR: " +str(variables2.elix) + " darab", "green", attrs=["bold"])
-    draw()
 
 def attack():
     if variables2.enemy_hp <= variables2.player_atk:

@@ -1,9 +1,5 @@
 class Character:
 
-    """
-    Class represents the player character stats.
-    """
-
     def __init__(self, name, attack, HP):
         self.name = name
         self.attack = attack
