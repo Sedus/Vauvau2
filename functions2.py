@@ -51,23 +51,23 @@ def logprint():
         cprint("    " + str(result), "magenta", attrs=["bold"])
 
 def heal(amount):
-    variables2.player_hp += amount
-    variables2.loglist.insert(0, variables2.name + " élete fel lett töltve " + str(variables2.player_hp) + "-re!")
+    Character.HP += amount
+    variables2.loglist.insert(0, Character.name + " élete fel lett töltve " + str(Character.HP) + "-re!")
 
 def usepotion():
-    if variables2.pot > 0:
-        variables2.pot -= 1
-        if variables2.player_hp + 30 > variables2.player_hpmax:
-            heal(variables2.player_hpmax - variables2.player_hp)
+    if Character.potion > 0:
+        Character.potion -= 1
+        if Character.HP + 30 > Character.HPMAX:
+            heal(Character.HPMAX - Character.HP)
         else:
             heal(30)
     else:
         variables2.loglist.insert(0, "Nincs gyógyitalod!")
 
 def useelixir():
-    if variables2.elix > 0:
-        variables2.elix -= 1
-        heal(variables2.player_hpmax - variables2.player_hp)
+    if Character.elixir > 0:
+        Character.elixir -= 1
+        heal(Character.HPMAX - Character.HP)
     else:
         variables2.loglist.insert(0, "Nincs elixíred!")
 
@@ -100,70 +100,70 @@ def moveleft():
     tiledraw()
     variables2.x -= 1
     variables2.map2[variables2.y][variables2.x] = "X" # kövi kurzor
-    variables2.loglist.insert(0, variables2.name + " balra lépett!\n")
+    variables2.loglist.insert(0, Character.name + " balra lépett!\n")
 
 def moveright():
     tiledraw()
     variables2.x += 1
     variables2.map2[variables2.y][variables2.x] = "X" # kövi kurzor
-    variables2.loglist.insert(0, variables2.name + " jobbra lépett!\n")
+    variables2.loglist.insert(0, Character.name + " jobbra lépett!\n")
 
 def moveup():
     tiledraw()
     variables2.y -= 1
     variables2.map2[variables2.y][variables2.x] = "X" # kövi kurzor
-    variables2.loglist.insert(0, variables2.name + " felfele lépett!\n")
+    variables2.loglist.insert(0, Character.name + " felfele lépett!\n")
 
 def movedown():
     tiledraw()
     variables2.y += 1
     variables2.map2[variables2.y][variables2.x] = "X" # kövi kurzor
-    variables2.loglist.insert(0, variables2.name + " lefele lépett!\n")
+    variables2.loglist.insert(0, Character.name + " lefele lépett!\n")
 
 def weaponupgrade():
-    if variables2.gold >= 10:
-        variables2.player_atk += 2
-        variables2.gold -= 10
+    if Character.gold >= 10:
+        Character.attack += 2
+        Character.gold -= 10
         variables2.loglist.insert(0, "Sikeresen fejlesztetted a fegyvered!\n")
     else:
         variables2.loglist.insert(0, "Nincs elég aranyad!\n")
 
 def potbuy():
-    if variables2.gold >= 5:
-        variables2.pot += 1
-        variables2.gold -= 5
+    if Character.gold >= 5:
+        Character.potion += 1
+        Character.gold -= 5
         variables2.loglist.insert(0, "Vettél egy gyógyitalt!\n")
     else:
         variables2.loglist.insert(0, "Nincs elég aranyad!\n")
 
 def elixbuy():
-    if variables2.gold >= 20:
-        variables2.elix += 1
-        variables2.gold -= 20
+    if Character.gold >= 20:
+        Character.elixir += 1
+        Character.gold -= 20
         variables2.loglist.insert(0, "Vettél egy elixírt!\n")
     else:
         variables2.loglist.insert(0, "Nincs elég aranyad!\n")
 
 def attack():
-    if variables2.enemy_hp <= variables2.player_atk:
+    if variables2.enemy_hp <= Character.attack:
         loot()
     else:
-        variables2.enemy_hp -= variables2.player_atk
-        variables2.player_hp -= variables2.enemy_atk
-        variables2.loglist.insert(0, variables2.name + " " + str(variables2.player_atk) + " sebzést okozott " + variables2.mobs [variables2.enemy] ["name"] + "-nak.\n")
-        variables2.loglist.insert(0, variables2.mobs [variables2.enemy] ["name"] + " " + str(variables2.enemy_atk) + " sebzést okozott " + variables2.name + "-nak.")
+        variables2.enemy_hp -= Character.attack
+        Character.HP -= variables2.enemy_atk
+        variables2.loglist.insert(0, Character.name + " " + str(Character.attack) + " sebzést okozott " + variables2.mobs [variables2.enemy] ["name"] + "-nak.\n")
+        variables2.loglist.insert(0, variables2.mobs [variables2.enemy] ["name"] + " " + str(variables2.enemy_atk) + " sebzést okozott " + Character.name + "-nak.")
         if variables2.player_hp <= 0:
             clear()
-            cprint (variables2.mobs [variables2.enemy] ["name"] + " legyőzte " + variables2.name + "...", "red")
+            cprint (variables2.mobs [variables2.enemy] ["name"] + " legyőzte " + Character.name + "...", "red")
             cprint("VÉGE", "red")
             input("> ")
             quit()
 
 def loot():
     variables2.loglist.clear()
-    variables2.loglist.insert(0, variables2.name + " legyőzte " + (variables2.mobs [variables2.enemy] ["name"] + "-ot!"))
+    variables2.loglist.insert(0, Character.name + " legyőzte " + (variables2.mobs [variables2.enemy] ["name"] + "-ot!"))
     variables2.loglist.insert(0, "Találtál " + str(variables2.mobs [variables2.enemy] ["gold"]) + " aranyat!\n")
-    variables2.gold += variables2.mobs [variables2.enemy] ["gold"]
+    Character.gold += variables2.mobs [variables2.enemy] ["gold"]
 
 def equipmentlayout():
     clear()
