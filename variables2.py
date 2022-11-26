@@ -1,50 +1,6 @@
 loglist = [] # MARADHAT
 
-
-
-x = 0
-y = 0
-tiles = ["síkság", "erdő", "híd", "hegység", "bolt", "béla", "küldetés"]
-y_len = 0
-x_len = 0
 enemy = ""
-
-map = []
-map2 = [[' ', ' ', ' ', ' ', ' ', ' ', ' '],
-        [' ', ' ', ' ', ' ', ' ', ' ', ' '],
-        [' ', ' ', ' ', ' ', ' ', ' ', ' '],
-        [' ', ' ', ' ', ' ', ' ', ' ', ' '],
-        [' ', ' ', ' ', ' ', ' ', ' ', ' ']]
-biom = {
-    "síkság": {
-        "name": "SÍKSÁG",
-        "spawn_enemy": True,
-        "icon": "♥"},
-    "erdő": {
-        "name": "ERDŐ",
-        "spawn_enemy": True,
-        "icon": "♠"},
-    "híd": {
-        "name": "HÍD",
-        "spawn_enemy": True,
-        "icon": "♣"},
-    "hegység": {
-        "name": "HEGYSÉG",
-        "spawn_enemy": True,
-        "icon": "♦"},
-    "bolt": {
-        "name": "BOLT",
-        "spawn_enemy": False,
-        "icon": "$"},
-    "béla": {
-        "name": "BÉLA",
-        "spawn_enemy": True,
-        "icon": "¤"},
-    "küldetés": {
-        "name": "KÜLDETÉS",
-        "spawn_enemy": True,
-        "icon": "@"},
-}
 
 enemy_list = ["Goblin", "Ork", "Slime"]
 

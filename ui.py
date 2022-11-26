@@ -1,21 +1,22 @@
 import os
 import variables2
-from functions2 import print_map
 from termcolor import cprint
 from art import tprint
 from character import *
+from map import *
 
 class UI:
-    state = None
-    counter = 0
-    menu = ["ÚJ JÁTÉK", "JÁTÉK BETÖLTÉSE", "SZABÁLYOK", "KILÉPÉS"]
-    menu2 = ["ÚJ JÁTÉK", "JÁTÉK BETÖLTÉSE", "SZABÁLYOK", "KILÉPÉS"]
-    play = ["MENTÉS ÉS KILÉPÉS", "▲ FEL", "► JOBBRA", "▼ LE", "◄ BALRA", "GYÓGYITAL HASZNÁLATA (30HP)", "ELIXÍR HASZNÁLATA (MAXHP)", "FELSZERELÉS", "BELÉPÉS"]
-    play2 = ["MENTÉS ÉS KILÉPÉS", "▲ FEL", "► JOBBRA", "▼ LE", "◄ BALRA", "GYÓGYITAL HASZNÁLATA (30HP)", "ELIXÍR HASZNÁLATA (MAXHP)", "FELSZERELÉS", "BELÉPÉS"]
-    shop = ["FEGYVER FEJLESZTÉSE (+2 SEBZÉS) - 10 ARANY", "GYÓGYITAL VÁSÁRLÁSA (+30HP) - 5 ARANY", "ELIXÍR VÁSÁRLÁSA (MAXHP) - 20 ARANY", "KILÉPÉS"]
-    shop2 = ["FEGYVER FEJLESZTÉSE (+2 SEBZÉS) - 10 ARANY", "GYÓGYITAL VÁSÁRLÁSA (+30HP) - 5 ARANY", "ELIXÍR VÁSÁRLÁSA (MAXHP) - 20 ARANY", "KILÉPÉS"]
-    battle = ["TÁMADÁS", "GYÓGYITAL HASZNÁLATA (30HP)", "ELIXÍR HASZNÁLATA (MAXHP)"]
-    battle2 = ["TÁMADÁS", "GYÓGYITAL HASZNÁLATA (30HP)", "ELIXÍR HASZNÁLATA (MAXHP)"]
+    def __init__(self, state, counter, menu, menu2, play, play2, shop, shop2, battle, battle2):
+        self.state = state
+        self.counter = counter
+        self.menu = menu
+        self.menu2 = menu2
+        self.play = play
+        self.play2 = play2
+        self.shop = shop
+        self.shop2 = shop2
+        self.battle = battle
+        self.battle2 = battle2
 
     def switchstate(hova):
         if hova == "menu":
@@ -30,7 +31,7 @@ class UI:
             UI.state = hova
             UI.play = UI.play2.copy()
             os.system("cls")
-            print_map(variables2.map2)
+            UI.print_map(Map.map2)
             UI.menu_layout2()
             UI.play[UI.counter] = "> " + UI.play[UI.counter] + " <"
             UI.navmenuprint(UI.play)
@@ -46,6 +47,7 @@ class UI:
             UI.counter = 0
             UI.state = hova
             UI.battle = UI.battle2.copy()
+            variables2.loglist.clear()
             os.system("cls")
             UI.battlelayout()
             UI.battle[UI.counter] = "> " + UI.battle[UI.counter] + " <"
@@ -63,7 +65,7 @@ class UI:
 
     def menu_layout2():
         UI.draw()
-        cprint("JELENLEGI POZÍCIÓ: " + variables2.biom[variables2.map[variables2.y][variables2.x]]["name"], "green", attrs=["bold"])
+        cprint("JELENLEGI POZÍCIÓ: " + Map.biom[Map.map[Character.pos_y][Character.pos_x]]["name"], "green", attrs=["bold"])
         UI.draw()
         cprint("NÉV: " + Character.name, "green", attrs=["bold"])
         cprint("ÉLET: " + str(Character.HP) + "/" + str(Character.HPMAX), "green", attrs=["bold"])
@@ -75,18 +77,30 @@ class UI:
     def shoplayout():
         cprint("Üdvözöllek a boltban!", "green", attrs=["bold"])
         UI.draw()
+        cprint("ÉLET: " + str(Character.HP) + "/" + str(Character.HPMAX), "green", attrs=["bold"])
         cprint("SEBZÉS: " + str(Character.attack), "green", attrs=["bold"])
         cprint("GYÓGYITAL: " + str(Character.potion) + " darab", "green", attrs=["bold"])
-        cprint("ELIXÍR: " +str(Character.elixir) + " darab", "green", attrs=["bold"])
-        cprint("ARANY: " +str(Character.gold) + "$", "green", attrs=["bold"])
+        cprint("ELIXÍR: " + str(Character.elixir) + " darab", "green", attrs=["bold"])
+        cprint("ARANY: " + str(Character.gold) + "$", "green", attrs=["bold"])
 
     def battlelayout():
         cprint("Győzd le " + variables2.mobs [variables2.enemy] ["name"] + "-ot!", "green", attrs=["bold"])
+        UI.draw()
         cprint(variables2.mobs [variables2.enemy] ["name"] + " élete: " + str(variables2.enemy_hp), "green", attrs=["bold"])
-        cprint(Character.name + " élete: " + str(Character.HP) + "/" + str(Character.HPMAX), "green", attrs=["bold"])   
+        UI.draw()
+        cprint("ÉLET: " + str(Character.HP) + "/" + str(Character.HPMAX), "green", attrs=["bold"])
+        cprint("SEBZÉS: " + str(Character.attack), "green", attrs=["bold"])
         cprint("GYÓGYITAL: " + str(Character.potion) + " darab", "green", attrs=["bold"])
-        cprint("ELIXÍR: " +str(Character.elixir) + " darab", "green", attrs=["bold"])
+        cprint("ELIXÍR: " + str(Character.elixir) + " darab", "green", attrs=["bold"])
+        cprint("ARANY: " + str(Character.gold) + "$", "green", attrs=["bold"])
 
+    def equipmentlayout():
+        cprint("FEGYVER", "green", attrs=["bold"])
+        cprint("VÉRT", "green", attrs=["bold"])
+        cprint("SISAK", "green", attrs=["bold"])
+        cprint("CIPŐ", "green", attrs=["bold"])
+        cprint("TALIZMÁN", "green", attrs=["bold"])
+    
     def draw():
         cprint("==============================================================================", "red")
 
@@ -108,7 +122,34 @@ class UI:
 
     def start():
         tprint("vauvau    2", "tarty1")
-        tprint("PRE-ALPHA    0.0.3", "tarty1")
+        tprint("PRE-ALPHA    0.0.4", "tarty1")
         cprint("NYOMJ MEG BÁRMIT AZ INDULÁSHOZ!", "green", attrs=["bold"])
         input (">")
         UI.switchstate("menu")
+    
+    def rules():
+        cprint("\nSzámok beírásával tudsz navigálni." + "\n" + "A számokhoz tartozó parancsot mellette írva találod.", "green", attrs=["bold"])
+
+    def tiledraw():
+        icon =  Map.biom [Map.map[Character.pos_y][Character.pos_x]] ["icon"]
+        Map.map2[Character.pos_y][Character.pos_x] = icon
+
+    def print_map(map2):
+        for i in map2:
+            cprint('\n' + '+---' * 7 + '+', "red")
+            for j in i:
+                cprint('| ', "red", end='')
+                cprint(format(j) + " ", "green", attrs=["bold"], end='')
+            cprint('|', "red", end='')
+        cprint('\n' + '+---' * 7 + '+', "red")
+
+UI.state = None
+UI.counter = 0
+UI.menu = ["ÚJ JÁTÉK", "JÁTÉK BETÖLTÉSE", "SZABÁLYOK", "KILÉPÉS"]
+UI.menu2 = ["ÚJ JÁTÉK", "JÁTÉK BETÖLTÉSE", "SZABÁLYOK", "KILÉPÉS"]
+UI.play = ["MENTÉS ÉS KILÉPÉS", "▲ FEL", "► JOBBRA", "▼ LE", "◄ BALRA", "GYÓGYITAL HASZNÁLATA (30HP)", "ELIXÍR HASZNÁLATA (MAXHP)", "FELSZERELÉS", "BELÉPÉS"]
+UI.play2 = ["MENTÉS ÉS KILÉPÉS", "▲ FEL", "► JOBBRA", "▼ LE", "◄ BALRA", "GYÓGYITAL HASZNÁLATA (30HP)", "ELIXÍR HASZNÁLATA (MAXHP)", "FELSZERELÉS", "BELÉPÉS"]
+UI.shop = ["FEGYVER FEJLESZTÉSE (+2 SEBZÉS) - 10 ARANY", "GYÓGYITAL VÁSÁRLÁSA (+30HP) - 5 ARANY", "ELIXÍR VÁSÁRLÁSA (MAXHP) - 20 ARANY", "KILÉPÉS"]
+UI.shop2 = ["FEGYVER FEJLESZTÉSE (+2 SEBZÉS) - 10 ARANY", "GYÓGYITAL VÁSÁRLÁSA (+30HP) - 5 ARANY", "ELIXÍR VÁSÁRLÁSA (MAXHP) - 20 ARANY", "KILÉPÉS"]
+UI.battle = ["TÁMADÁS", "GYÓGYITAL HASZNÁLATA (30HP)", "ELIXÍR HASZNÁLATA (MAXHP)"]
+UI.battle2 = ["TÁMADÁS", "GYÓGYITAL HASZNÁLATA (30HP)", "ELIXÍR HASZNÁLATA (MAXHP)"]

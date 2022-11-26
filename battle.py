@@ -1,9 +1,10 @@
 import random
 import variables2
 from ui import *
+from map import *
 
 def spawnenemychance():
-    if variables2.biom [variables2.map[variables2.y][variables2.x]] ["spawn_enemy"]:
+    if  Map.biom [Map.map[Character.pos_y][Character.pos_x]] ["spawn_enemy"]:
         if random.randint (1, 10) <= 100:
             variables2.enemy = random.choice(variables2.enemy_list)
             variables2.mobs ["Goblin"] ["name"] = random.choice(variables2.goblin_names)
@@ -15,6 +16,7 @@ def spawnenemychance():
 
 def attack():
     if variables2.enemy_hp <= Character.attack:
+        variables2.loglist.clear()
         loot()
     else:
         variables2.enemy_hp -= Character.attack

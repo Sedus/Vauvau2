@@ -1,13 +1,15 @@
 import keyboard
 from time import sleep
 
-import variables2
-from functions2 import *
 from ui import *
 import battle
+import navi
+import shop
+from character import *
+from map import *
 
 UI.start()
-createmap()
+Map.createmap()
 
 while True:
     while UI.state == "menu": #ÚJ JÁTÉK - JÁTÉK BETÖLTÉSE - SZABÁLYOK - KILÉPÉS
@@ -17,11 +19,11 @@ while True:
         while keyboard.is_pressed("enter"): pass
         
         if keypressed == "up":
-            clear()
+            os.system("cls")
             UI.navup(UI.menu, UI.menu2)
             UI.navmenuprint(UI.menu)
         if keypressed == "down":
-            clear()
+            os.system("cls")
             UI.navdown(UI.menu, UI.menu2)
             UI.navmenuprint(UI.menu)
         if keypressed == "enter":
@@ -30,13 +32,13 @@ while True:
             if UI.counter == 1: #JÁTÉK BETÖLTÉSE
                 pass
             if UI.counter == 2: #SZABÁLYOK
-                rules()
+                UI.rules()
                 sleep(3)
-                clear()
+                os.system("cls")
                 UI.navmenuprint(UI.menu)
             if UI.counter == 3: #KILÉPÉS
                 quit()
-    
+
     while UI.state == "play":
         keypressed = keyboard.read_key()
         while keyboard.is_pressed("down"): pass
@@ -44,62 +46,62 @@ while True:
         while keyboard.is_pressed("enter"): pass
 
         if keypressed == "up":
-            clear()
-            print_map(variables2.map2)
+            os.system("cls")
+            UI.print_map(Map.map2)
             UI.menu_layout2()
             UI.navup(UI.play, UI.play2)
             UI.navmenuprint(UI.play)
         if keypressed == "down":
-            clear()
-            print_map(variables2.map2)
+            os.system("cls")
+            UI.print_map(Map.map2)
             UI.menu_layout2()
             UI.navdown(UI.play, UI.play2)
             UI.navmenuprint(UI.play)
         if keypressed == "enter":
             if UI.counter == 0: #MENTÉS ÉS KILÉPÉS
                 quit()
-            if UI.counter == 1 and variables2.y > 0: #FEL
-                moveup()
-                clear()
-                print_map(variables2.map2)
+            if UI.counter == 1 and Character.pos_y > 0: #FEL
+                navi.moveup()
+                os.system("cls")
+                UI.print_map(Map.map2)
                 UI.menu_layout2()
                 UI.navmenuprint(UI.play)
                 battle.spawnenemychance()
-            if UI.counter == 2 and variables2.x < variables2.x_len: #JOBBRA
-                moveright()
-                clear()
-                print_map(variables2.map2)
+            if UI.counter == 2 and Character.pos_x < Map.len_x: #JOBBRA
+                navi.moveright()
+                os.system("cls")
+                UI.print_map(Map.map2)
                 UI.menu_layout2()
                 UI.navmenuprint(UI.play)
                 battle.spawnenemychance()
-            if UI.counter == 3 and variables2.y < variables2.y_len: #LE
-                movedown()
-                clear()
-                print_map(variables2.map2)
+            if UI.counter == 3 and Character.pos_y < Map.len_y: #LE
+                navi.movedown()
+                os.system("cls")
+                UI.print_map(Map.map2)
                 UI.menu_layout2()
                 UI.navmenuprint(UI.play)
                 battle.spawnenemychance()
-            if UI.counter == 4 and variables2.x > 0: #BALRA
-                moveleft()
-                clear()
-                print_map(variables2.map2)
+            if UI.counter == 4 and Character.pos_x > 0: #BALRA
+                navi.moveleft()
+                os.system("cls")
+                UI.print_map(Map.map2)
                 UI.menu_layout2()
                 UI.navmenuprint(UI.play)
                 battle.spawnenemychance()
             if UI.counter == 5: #GYÓGYITAL HASZNÁLATA
-                usepotion()
-                clear()
-                print_map(variables2.map2)
+                Character.usepotion()
+                os.system("cls")
+                UI.print_map(Map.map2)
                 UI.menu_layout2()
                 UI.navmenuprint(UI.play)
             if UI.counter == 6: #ELIXÍR HASZNÁLATA
-                useelixir()
-                clear()
-                print_map(variables2.map2)
+                Character.useelixir()
+                os.system("cls")
+                UI.print_map(Map.map2)
                 UI.menu_layout2()
                 UI.navmenuprint(UI.play)
             if UI.counter == 7: #FELSZERELÉS
-                equipmentlayout()
+                pass
             if UI.counter == 8: #BELÉPÉS
                 UI.switchstate("shop")
 
@@ -110,29 +112,29 @@ while True:
         while keyboard.is_pressed("enter"): pass
         
         if keypressed == "up":
-            clear()
+            os.system("cls")
             UI.shoplayout()
             UI.navup(UI.shop, UI.shop2)
             UI.navmenuprint(UI.shop)
         if keypressed == "down":
-            clear()
+            os.system("cls")
             UI.shoplayout()
             UI.navdown(UI.shop, UI.shop2)
             UI.navmenuprint(UI.shop)
         if keypressed == "enter":
             if UI.counter == 0:
-                weaponupgrade()
-                clear()
+                shop.weaponupgrade()
+                os.system("cls")
                 UI.shoplayout()
                 UI.navmenuprint(UI.shop)
             if UI.counter == 1:
-                potbuy()
-                clear()
+                shop.potbuy()
+                os.system("cls")
                 UI.shoplayout()
                 UI.navmenuprint(UI.shop)
             if UI.counter == 2:
-                elixbuy()
-                clear()
+                shop.elixbuy()
+                os.system("cls")
                 UI.shoplayout()
                 UI.navmenuprint(UI.shop)
             if UI.counter == 3: #KILÉPÉS
@@ -145,12 +147,12 @@ while True:
         while keyboard.is_pressed("enter"): pass
         
         if keypressed == "up":
-            clear()
+            os.system("cls")
             UI.battlelayout()
             UI.navup(UI.battle, UI.battle2)
             UI.navmenuprint(UI.battle)
         if keypressed == "down":
-            clear()
+            os.system("cls")
             UI.battlelayout()
             UI.navdown(UI.battle, UI.battle2)
             UI.navmenuprint(UI.battle)
@@ -158,16 +160,16 @@ while True:
             if UI.counter == 0:
                 battle.attack()
                 if UI.state == "battle":
-                    clear()
+                    os.system("cls")
                     UI.battlelayout()
                     UI.navmenuprint(UI.battle)
             if UI.counter == 1:
-                usepotion()
-                clear()
+                Character.usepotion()
+                os.system("cls")
                 UI.battlelayout()
                 UI.navmenuprint(UI.battle)
             if UI.counter == 2:
-                useelixir()
-                clear()
+                Character.useelixir()
+                os.system("cls")
                 UI.battlelayout()
                 UI.navmenuprint(UI.battle)
