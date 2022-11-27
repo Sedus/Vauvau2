@@ -38,8 +38,8 @@ class Character:
 Character.pos_x = 0
 Character.pos_y = 0
 Character.name = "Gecisfasz"
-Character.attack = 10
-Character.HP = 200
+Character.attack = 90
+Character.HP = 2000
 Character.HPMAX = 500
 Character.defense = 2
 Character.gold = 50

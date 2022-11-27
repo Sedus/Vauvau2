@@ -1,26 +1,28 @@
+import random
+
 class Enemy:
 
-    def __init__(self, name, attack, HP, defense):
+    def __init__(self, name, attack, HP, HPMAX, defense, gold):
         self.name = name
         self.attack = attack
         self.HP = HP
+        self.HPMAX = HPMAX
         self.defense = defense
+        self.gold = gold
 
-    def get_attack(self):
-        
-        attack = self.attack
-        return attack
+    selected_enemy = ""
 
-    def get_defense(self):
+class Orc(Enemy):
+    def __init__(self):
+        super().__init__(random.choice(list(open("orc_names.txt"))).strip(), 10, 100, 250, 6, 90)
 
-        return self.defense
+class Goblin(Enemy):
+    def __init__(self):
+        super().__init__(random.choice(list(open("goblin_names.txt"))).strip(), 10, 111, 250, 1, 9)
 
-    def get_HP(self):
-
-        HP = self.HP
-        return HP
-
-
-Enemy.attack = 1
-Enemy.name = "llllllllllllllllll"
-Enemy.HP = 1
+def enemy_select(*args):
+    enemy_list = [*args]
+    length_list = (len(enemy_list))-1
+    enemy_chance = random.randint(0, length_list)
+    enemy_1 = enemy_list[enemy_chance]
+    return enemy_1

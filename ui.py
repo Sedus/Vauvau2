@@ -4,6 +4,7 @@ from termcolor import cprint
 from art import tprint
 from character import *
 from map import *
+from enemy import *
 
 class UI:
     def __init__(self, state, counter, menu, menu2, play, play2, shop, shop2, battle, battle2):
@@ -70,6 +71,7 @@ class UI:
         cprint("NÉV: " + Character.name, "green", attrs=["bold"])
         cprint("ÉLET: " + str(Character.HP) + "/" + str(Character.HPMAX), "green", attrs=["bold"])
         cprint("SEBZÉS: " + str(Character.attack), "green", attrs=["bold"])
+        cprint("PÁNCÉL: " + str(Character.defense), "green", attrs=["bold"])
         cprint("GYÓGYITAL: " + str(Character.potion) + " darab", "green", attrs=["bold"])
         cprint("ELIXÍR: " + str(Character.elixir) + " darab", "green", attrs=["bold"])
         cprint("ARANY: " + str(Character.gold) + "$", "green", attrs=["bold"])
@@ -79,17 +81,23 @@ class UI:
         UI.draw()
         cprint("ÉLET: " + str(Character.HP) + "/" + str(Character.HPMAX), "green", attrs=["bold"])
         cprint("SEBZÉS: " + str(Character.attack), "green", attrs=["bold"])
+        cprint("PÁNCÉL: " + str(Character.defense), "green", attrs=["bold"])
         cprint("GYÓGYITAL: " + str(Character.potion) + " darab", "green", attrs=["bold"])
         cprint("ELIXÍR: " + str(Character.elixir) + " darab", "green", attrs=["bold"])
         cprint("ARANY: " + str(Character.gold) + "$", "green", attrs=["bold"])
 
     def battlelayout():
-        cprint("Győzd le " + variables2.mobs [variables2.enemy] ["name"] + "-ot!", "green", attrs=["bold"])
+        cprint("Győzd le " + Enemy.selected_enemy.name + "-ot!", "green", attrs=["bold"])
         UI.draw()
-        cprint(variables2.mobs [variables2.enemy] ["name"] + " élete: " + str(variables2.enemy_hp), "green", attrs=["bold"])
+        cprint(Enemy.selected_enemy.name, "white", "on_blue", attrs=["bold"])
+        cprint("ÉLET: " + str(Enemy.selected_enemy.HP) + "/" + str(Enemy.selected_enemy.HPMAX), "green", attrs=["bold"])
+        cprint("SEBZÉS: " + str(Enemy.selected_enemy.attack), "green", attrs=["bold"])
+        cprint("PÁNCÉL: " + str(Enemy.selected_enemy.defense), "green", attrs=["bold"])
         UI.draw()
+        cprint(Character.name, "white", "on_blue", attrs=["bold"])
         cprint("ÉLET: " + str(Character.HP) + "/" + str(Character.HPMAX), "green", attrs=["bold"])
         cprint("SEBZÉS: " + str(Character.attack), "green", attrs=["bold"])
+        cprint("PÁNCÉL: " + str(Character.defense), "green", attrs=["bold"])
         cprint("GYÓGYITAL: " + str(Character.potion) + " darab", "green", attrs=["bold"])
         cprint("ELIXÍR: " + str(Character.elixir) + " darab", "green", attrs=["bold"])
         cprint("ARANY: " + str(Character.gold) + "$", "green", attrs=["bold"])
