@@ -7,7 +7,7 @@ from map import *
 from enemy import *
 
 class UI:
-    def __init__(self, state, counter, menu, menu2, play, play2, shop, shop2, battle, battle2):
+    def __init__(self, state, counter, menu, menu2, play, play2, shop, shop2, battle, battle2, equipment, equipment2):
         self.state = state
         self.counter = counter
         self.menu = menu
@@ -18,6 +18,8 @@ class UI:
         self.shop2 = shop2
         self.battle = battle
         self.battle2 = battle2
+        self.equipment = equipment
+        self.equipment2 = equipment2
 
     def switchstate(hova):
         if hova == "menu":
@@ -53,6 +55,15 @@ class UI:
             UI.battlelayout()
             UI.battle[UI.counter] = "> " + UI.battle[UI.counter] + " <"
             UI.navmenuprint(UI.battle)
+        if hova == "equipment":
+            UI.counter = 0
+            UI.state = hova
+            UI.equipment = UI.equipment2.copy()
+            variables2.loglist.clear()
+            os.system("cls")
+            UI.equipmentlayout()
+            UI.equipment[UI.counter] = "> " + UI.equipment[UI.counter] + " <"
+            UI.navmenuprint(UI.equipment)
 
     def navup(list1, list2):
         list1[UI.counter] = list2[UI.counter]
@@ -77,7 +88,25 @@ class UI:
         cprint("ARANY: " + str(Character.gold) + "$", "green", attrs=["bold"])
 
     def shoplayout():
-        cprint("Üdvözöllek a boltban!", "green", attrs=["bold"])
+        cprint("""
+                (
+        
+                )
+                ( _   _._
+                |_|-'_~_`-._
+            _.-'-_~_-~_-~-_`-._
+        _.-'_~-_~-_-~-_~_~-_~-_`-._
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            |  []  []   []   []  [] |
+            |           __    ___   |   
+        ._|  []  []  | .|  [___]  |_._._._._._._._._._._._._._._._._.  
+        |=|________()|__|()_______|=|=|=|=|=|=|=|=|=|=|=|=|=|=|=|=|=| 
+        ^^^^^^^^^^^^^^^ === ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  
+                          ===   
+                            === 
+                              ===
+                                ===
+        """, "white", attrs=["bold"])
         UI.draw()
         cprint("ÉLET: " + str(Character.HP) + "/" + str(Character.HPMAX), "green", attrs=["bold"])
         cprint("SEBZÉS: " + str(Character.attack), "green", attrs=["bold"])
@@ -87,7 +116,12 @@ class UI:
         cprint("ARANY: " + str(Character.gold) + "$", "green", attrs=["bold"])
 
     def battlelayout():
-        cprint("Győzd le " + Enemy.selected_enemy.name + "-ot!", "green", attrs=["bold"])
+        if isinstance(Enemy.selected_enemy, Orc):
+            UI.orc_print()
+        if isinstance(Enemy.selected_enemy, Goblin):
+            UI.orc_print()
+        if isinstance(Enemy.selected_enemy, Slime):
+            UI.orc_print()
         UI.draw()
         cprint(Enemy.selected_enemy.name, "white", "on_blue", attrs=["bold"])
         cprint("ÉLET: " + str(Enemy.selected_enemy.HP) + "/" + str(Enemy.selected_enemy.HPMAX), "green", attrs=["bold"])
@@ -103,12 +137,40 @@ class UI:
         cprint("ARANY: " + str(Character.gold) + "$", "green", attrs=["bold"])
 
     def equipmentlayout():
-        cprint("FEGYVER", "green", attrs=["bold"])
-        cprint("VÉRT", "green", attrs=["bold"])
-        cprint("SISAK", "green", attrs=["bold"])
-        cprint("CIPŐ", "green", attrs=["bold"])
-        cprint("TALIZMÁN", "green", attrs=["bold"])
-    
+        cprint("""
+                           .-.
+                          {{#}}
+          {}               8@8
+        .::::.             888
+    @\\/W\/\/W\//@         8@8
+     \\/^\/\/^\//     _    )8(    _
+      \_O_{}_O_/     (@)__/8@8\__(@)
+ ____________________ `~"-=):(=-"~`
+|<><><>  |  |  <><><>|     |.|
+|<>      |  |      <>|     |S|
+|<>      |  |      <>|     |'|
+|<>   .--------.   <>|     |.|
+|     |   ()   |     |     |P|
+|_____| (O\/O) |_____|     |'|
+|     \   /\   /     |     |.|
+|------\  \/  /------|     |U|
+|       '.__.'       |     |'|
+|        |  |        |     |.|
+:        |  |        :     |N|
+ \       |  |       /      |'|
+  \<>    |  |    <>/       |.|
+   \<>   |  |   <>/        |K|
+    `\<> |  | <>/'         |'|
+      `-.|__|.-`           \ /
+                            ˇ
+        """, "green", attrs=["bold"])
+        UI.draw()
+        cprint("FEGYVER: " + Character.weapon, "green", attrs=["bold"])
+        cprint("VÉRT: " + Character.armor, "green", attrs=["bold"])
+        cprint("SISAK: " + Character.helmet, "green", attrs=["bold"])
+        cprint("CIPŐ: " + Character.boots, "green", attrs=["bold"])
+        cprint("TALIZMÁN: " + Character.talisman, "green", attrs=["bold"])
+
     def draw():
         cprint("==============================================================================", "red")
 
@@ -150,6 +212,33 @@ class UI:
                 cprint(format(j) + " ", "green", attrs=["bold"], end='')
             cprint('|', "red", end='')
         cprint('\n' + '+---' * 7 + '+', "red")
+    
+    def orc_print():
+        cprint("""                                                                                                                                        
+                   (    )
+                  ((((()))
+                  |o\ /o)|
+                  ( (  _')
+                   (._.  /\__
+                  ,\___,/ '  ')
+    '.,_,,       (  .- .   .    )
+     \   \\     ( '        )(    )
+      \   \\    \.  _.__ ____( .  |
+       \  /\\   .(   .'  /\  '.  )
+        \(  \\.-' ( /    \/    \)
+         '  ()) _'.-|/\/\/\/\/\|
+             '\\ .( |\/\/\/\/\/|
+               '((  \    /\    /
+               ((((  '.__\/__.')
+                ((,) /   ((()   )
+                 "..-,  (()("   /
+                  _//.   ((() ."
+          _____ //,/" ___ ((( ', ___
+                           ((  )
+                            / /
+                          _/,/'
+                        /,/,"
+    """, "green", attrs=["bold"])
 
 UI.state = None
 UI.counter = 0
@@ -161,3 +250,5 @@ UI.shop = ["FEGYVER FEJLESZTÉSE (+2 SEBZÉS) - 10 ARANY", "GYÓGYITAL VÁSÁRL�
 UI.shop2 = ["FEGYVER FEJLESZTÉSE (+2 SEBZÉS) - 10 ARANY", "GYÓGYITAL VÁSÁRLÁSA (+30HP) - 5 ARANY", "ELIXÍR VÁSÁRLÁSA (MAXHP) - 20 ARANY", "KILÉPÉS"]
 UI.battle = ["TÁMADÁS", "GYÓGYITAL HASZNÁLATA (30HP)", "ELIXÍR HASZNÁLATA (MAXHP)"]
 UI.battle2 = ["TÁMADÁS", "GYÓGYITAL HASZNÁLATA (30HP)", "ELIXÍR HASZNÁLATA (MAXHP)"]
+UI.equipment = ["FEGYVER", "VÉRT", "SISAK", "CIPŐ", "TALIZMÁN"]
+UI.equipment2 = ["FEGYVER", "VÉRT", "SISAK", "CIPŐ", "TALIZMÁN"]

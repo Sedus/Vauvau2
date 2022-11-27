@@ -4,12 +4,13 @@ from map import *
 from enemy import *
 
 def spawnenemychance():
-    Enemy.selected_enemy = enemy_select(Orc(), Goblin())
+    Enemy.selected_enemy = enemy_select(Orc(), Goblin(), Slime())
     UI.switchstate("battle")
 
 def attack():
     if Enemy.selected_enemy.HP <= Character.attack:
         variables2.loglist.clear()
+        Character.HP -= Enemy.selected_enemy.attack
         loot()
     else:
         Enemy.selected_enemy.HP -= Character.attack

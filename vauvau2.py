@@ -101,7 +101,7 @@ while True:
                 UI.menu_layout2()
                 UI.navmenuprint(UI.play)
             if UI.counter == 7: #FELSZERELÉS
-                pass
+                UI.switchstate("equipment")
             if UI.counter == 8: #BELÉPÉS
                 UI.switchstate("shop")
 
@@ -173,3 +173,39 @@ while True:
                 os.system("cls")
                 UI.battlelayout()
                 UI.navmenuprint(UI.battle)
+    
+    while UI.state == "equipment":
+        keypressed = keyboard.read_key()
+        while keyboard.is_pressed("down"): pass
+        while keyboard.is_pressed("up"): pass
+        while keyboard.is_pressed("enter"): pass
+        
+        if keypressed == "up":
+            os.system("cls")
+            UI.equipmentlayout()
+            UI.navup(UI.equipment, UI.equipment2)
+            UI.navmenuprint(UI.equipment)
+        if keypressed == "down":
+            os.system("cls")
+            UI.equipmentlayout()
+            UI.navdown(UI.equipment, UI.equipment2)
+            UI.navmenuprint(UI.equipment)
+        if keypressed == "enter":
+            if UI.counter == 0:
+                os.system("cls")
+                UI.equipmentlayout()
+                UI.navmenuprint(UI.equipment)
+            if UI.counter == 1:
+                os.system("cls")
+                UI.equipmentlayout()
+                UI.navmenuprint(UI.equipment)
+            if UI.counter == 2:
+                os.system("cls")
+                UI.equipmentlayout()
+                UI.navmenuprint(UI.equipment)
+            if UI.counter == 3:
+                os.system("cls")
+                UI.equipmentlayout()
+                UI.navmenuprint(UI.equipment)
+            if UI.counter == 4:
+                UI.switchstate("play")
