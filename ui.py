@@ -192,7 +192,7 @@ class UI:
 
     def start():
         tprint("vauvau    2", "tarty1")
-        tprint("PRE-ALPHA    0.0.4", "tarty1")
+        tprint("PRE-ALPHA    0.1.0", "tarty1")
         cprint("NYOMJ MEG BÁRMIT AZ INDULÁSHOZ!", "green", attrs=["bold"])
         input (">")
         UI.switchstate("menu")
