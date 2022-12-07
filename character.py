@@ -3,7 +3,7 @@ from items import *
 
 class Character:
 
-    def __init__(self, pos_x, pos_y, name, attack, HP, HPMAX, defense, gold, potion, elixir, weapon, armor, helmet, boots, talisman):
+    def __init__(self, pos_x, pos_y, name, attack, HP, HPMAX, defense, gold, potion, elixir, weapon, armor, helmet, boots, talisman, bag, bag2):
         self.pos_x = pos_x
         self.pos_y = pos_y
         self.name = name
@@ -20,10 +20,13 @@ class Character:
         self.helmet = helmet
         self.boots = boots
         self.talisman = talisman
+
+        self.bag = bag
+        self.bag2 = bag2
     
     def attackplus(self):
 
-        self.attack = 5
+        self.attack = 50
         self.defense = 2
         self.HP = 2000
 
@@ -78,5 +81,8 @@ Character.armor = "Zsidó Ing"
 Character.helmet = "Zsidó Kalap"
 Character.boots = "Zsidó Papucs"
 Character.talisman = "Zsidó Talizmán"
+
+Character.bag = ["Zsidó Kés", "Fasz Bökő", "Geci Szurony"]
+Character.bag2 = ["Zsidó Kés", "Fasz Bökő", "Geci Szurony"]
 
 Character.attackplus(Character)

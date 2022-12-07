@@ -7,6 +7,7 @@ import navi
 import shop
 from character import *
 from map import *
+from variables2 import *
 
 UI.start()
 Map.createmap()
@@ -148,13 +149,13 @@ while True:
         
         if keypressed == "up":
             os.system("cls")
-            UI.battlelayout()
             UI.navup(UI.battle, UI.battle2)
+            UI.battlelayout()
             UI.navmenuprint(UI.battle)
         if keypressed == "down":
             os.system("cls")
-            UI.battlelayout()
             UI.navdown(UI.battle, UI.battle2)
+            UI.battlelayout()
             UI.navmenuprint(UI.battle)
         if keypressed == "enter":
             if UI.counter == 0:
@@ -182,30 +183,53 @@ while True:
         
         if keypressed == "up":
             os.system("cls")
-            UI.equipmentlayout()
             UI.navup(UI.equipment, UI.equipment2)
+            UI.equipmentlayout()
             UI.navmenuprint(UI.equipment)
         if keypressed == "down":
             os.system("cls")
-            UI.equipmentlayout()
             UI.navdown(UI.equipment, UI.equipment2)
+            UI.equipmentlayout()
             UI.navmenuprint(UI.equipment)
         if keypressed == "enter":
             if UI.counter == 0:
-                os.system("cls")
-                UI.equipmentlayout()
-                UI.navmenuprint(UI.equipment)
+                variables2.equipment_type = "weapon"
+                UI.switchstate("inequipment") # FEGYVER
             if UI.counter == 1:
-                os.system("cls")
-                UI.equipmentlayout()
-                UI.navmenuprint(UI.equipment)
+                variables2.equipment_type = "armor"
+                UI.switchstate("inequipment") # VÉRT
             if UI.counter == 2:
-                os.system("cls")
-                UI.equipmentlayout()
-                UI.navmenuprint(UI.equipment)
+                variables2.equipment_type = "helmet"
+                UI.switchstate("inequipment") # SISAK
             if UI.counter == 3:
-                os.system("cls")
-                UI.equipmentlayout()
-                UI.navmenuprint(UI.equipment)
+                variables2.equipment_type = "boots"
+                UI.switchstate("inequipment") # CIPŐ
             if UI.counter == 4:
-                UI.switchstate("play")
+                variables2.equipment_type = "talisman"
+                UI.switchstate("inequipment") # TALIZMÁN
+            if UI.counter == 5:
+                UI.switchstate("play") # KILÉPÉS
+        
+    while UI.state == "inequipment":
+        keypressed = keyboard.read_key()
+        while keyboard.is_pressed("down"): pass
+        while keyboard.is_pressed("up"): pass
+        while keyboard.is_pressed("enter"): pass
+        
+        if keypressed == "up":
+            os.system("cls")
+            UI.navup(Character.bag, Character.bag2)
+            UI.inequipmentlayout()
+            UI.navmenuprint(Character.bag)
+        if keypressed == "down":
+            os.system("cls")
+            UI.navdown(Character.bag, Character.bag2)
+            UI.inequipmentlayout()
+            UI.navmenuprint(Character.bag)
+        if keypressed == "enter":
+            if UI.counter == 0:
+                pass
+            if UI.counter == 1:
+                pass
+            if UI.counter == 2:
+                UI.switchstate("equipment")

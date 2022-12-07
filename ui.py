@@ -1,13 +1,14 @@
 import os
-import variables2
+from variables2 import *
 from termcolor import cprint
 from art import tprint
 from character import *
 from map import *
 from enemy import *
+from items import *
 
 class UI:
-    def __init__(self, state, counter, menu, menu2, play, play2, shop, shop2, battle, battle2, equipment, equipment2):
+    def __init__(self, state, counter, menu, menu2, play, play2, shop, shop2, battle, battle2, equipment, equipment2, itemlist, itemlist2):
         self.state = state
         self.counter = counter
         self.menu = menu
@@ -20,6 +21,8 @@ class UI:
         self.battle2 = battle2
         self.equipment = equipment
         self.equipment2 = equipment2
+        self.itemlist = itemlist
+        self.itemlist2 = itemlist2
 
     def switchstate(hova):
         if hova == "menu":
@@ -64,6 +67,14 @@ class UI:
             UI.equipmentlayout()
             UI.equipment[UI.counter] = "> " + UI.equipment[UI.counter] + " <"
             UI.navmenuprint(UI.equipment)
+        if hova == "inequipment":
+            UI.state = hova
+            Character.bag =  Character.bag2.copy()
+            variables2.loglist.clear()
+            os.system("cls")
+            UI.inequipmentlayout()
+            Character.bag[UI.counter] = "> " +  Character.bag[UI.counter] + " <"
+            UI.navmenuprint(Character.bag)
 
     def navup(list1, list2):
         list1[UI.counter] = list2[UI.counter]
@@ -137,6 +148,7 @@ class UI:
         cprint("ARANY: " + str(Character.gold) + "$", "green", attrs=["bold"])
 
     def equipmentlayout():
+        print (UI.counter)
         cprint("""
                            .-.
                           {{#}}
@@ -171,6 +183,34 @@ class UI:
         cprint("CIPŐ: " + Character.boots, "green", attrs=["bold"])
         cprint("TALIZMÁN: " + Character.talisman, "green", attrs=["bold"])
 
+    def inequipmentlayout():
+        print(UI.state)
+        print (UI.counter)
+        print (variables2.equipment_type)
+        print(Character.bag)
+        print(Character.bag2)
+        cprint("Felszerelt tárgy:                                 Kiválasztott tárgy:\n", "green", attrs=["bold"])
+        if variables2.equipment_type == "weapon":
+            cprint(Character.weapon + "                                         " + Character.bag2[UI.counter], "green", attrs=["bold"])
+            cprint("SEBZÉS: " + str(weapon[Character.weapon]["attack"]) + "                                        " + "SEBZÉS: " + str(weapon[Character.bag2[UI.counter]]["attack"]), "green", attrs=["bold"])
+        if variables2.equipment_type == "armor":
+            pass
+        if variables2.equipment_type == "helmet":
+            cprint(Character.weapon + "                                         " + UI.inequipment2[UI.counter], "green", attrs=["bold"])
+            cprint("SEBZÉS: " + str(weapon[Character.weapon]["attack"]) + "                                        " + "SEBZÉS: " + str(weapon[UI.inequipment2[UI.counter]]["attack"]), "green", attrs=["bold"])
+            cprint(Character.helmet, "green", attrs=["bold"])
+            cprint("HP: " + str(helmet[Character.helmet]["HP"]), "green", attrs=["bold"])
+        if variables2.equipment_type == "boots":
+            cprint(Character.weapon + "                                         " + UI.inequipment2[UI.counter], "green", attrs=["bold"])
+            cprint("SEBZÉS: " + str(weapon[Character.weapon]["attack"]) + "                                        " + "SEBZÉS: " + str(weapon[UI.inequipment2[UI.counter]]["attack"]), "green", attrs=["bold"])
+            cprint(Character.boots, "green", attrs=["bold"])
+            cprint("HP: " + str(boots[Character.boots]["HP"]), "green", attrs=["bold"])
+        if variables2.equipment_type == "talisman":
+            cprint(Character.talisman, "green", attrs=["bold"])
+            cprint("SEBZÉS: " + str(talisman[Character.talisman]["attack"]), "green", attrs=["bold"])
+            cprint("PÁNCÉL: " + str(talisman[Character.talisman]["armor"]), "green", attrs=["bold"])
+            cprint("HP: " + str(talisman[Character.talisman]["HP"]), "green", attrs=["bold"])
+    
     def draw():
         cprint("==============================================================================", "red")
 
@@ -250,5 +290,5 @@ UI.shop = ["FEGYVER FEJLESZTÉSE (+2 SEBZÉS) - 10 ARANY", "GYÓGYITAL VÁSÁRL�
 UI.shop2 = ["FEGYVER FEJLESZTÉSE (+2 SEBZÉS) - 10 ARANY", "GYÓGYITAL VÁSÁRLÁSA (+30HP) - 5 ARANY", "ELIXÍR VÁSÁRLÁSA (MAXHP) - 20 ARANY", "KILÉPÉS"]
 UI.battle = ["TÁMADÁS", "GYÓGYITAL HASZNÁLATA (30HP)", "ELIXÍR HASZNÁLATA (MAXHP)"]
 UI.battle2 = ["TÁMADÁS", "GYÓGYITAL HASZNÁLATA (30HP)", "ELIXÍR HASZNÁLATA (MAXHP)"]
-UI.equipment = ["FEGYVER", "VÉRT", "SISAK", "CIPŐ", "TALIZMÁN"]
-UI.equipment2 = ["FEGYVER", "VÉRT", "SISAK", "CIPŐ", "TALIZMÁN"]
+UI.equipment = ["FEGYVER", "VÉRT", "SISAK", "CIPŐ", "TALIZMÁN", "KILÉPÉS"]
+UI.equipment2 = ["FEGYVER", "VÉRT", "SISAK", "CIPŐ", "TALIZMÁN", "KILÉPÉS"]
