@@ -69,12 +69,12 @@ class UI:
             UI.navmenuprint(UI.equipment)
         if hova == "inequipment":
             UI.state = hova
-            Character.bag =  Character.bag2.copy()
+            Character.weaponbag =  Character.weaponbag2.copy()
             variables2.loglist.clear()
             os.system("cls")
             UI.inequipmentlayout()
-            Character.bag[UI.counter] = "> " +  Character.bag[UI.counter] + " <"
-            UI.navmenuprint(Character.bag)
+            Character.weaponbag[UI.counter] = "> " +  Character.weaponbag[UI.counter] + " <"
+            UI.navmenuprint(Character.weaponbag)
 
     def navup(list1, list2):
         list1[UI.counter] = list2[UI.counter]
@@ -148,7 +148,6 @@ class UI:
         cprint("ARANY: " + str(Character.gold) + "$", "green", attrs=["bold"])
 
     def equipmentlayout():
-        print (UI.counter)
         cprint("""
                            .-.
                           {{#}}
@@ -184,32 +183,40 @@ class UI:
         cprint("TALIZMÁN: " + Character.talisman, "green", attrs=["bold"])
 
     def inequipmentlayout():
-        print(UI.state)
-        print (UI.counter)
-        print (variables2.equipment_type)
-        print(Character.bag)
-        print(Character.bag2)
         cprint("Felszerelt tárgy:                                 Kiválasztott tárgy:\n", "green", attrs=["bold"])
         if variables2.equipment_type == "weapon":
-            cprint(Character.weapon + "                                         " + Character.bag2[UI.counter], "green", attrs=["bold"])
-            cprint("SEBZÉS: " + str(weapon[Character.weapon]["attack"]) + "                                        " + "SEBZÉS: " + str(weapon[Character.bag2[UI.counter]]["attack"]), "green", attrs=["bold"])
-        if variables2.equipment_type == "armor":
-            pass
-        if variables2.equipment_type == "helmet":
+            cprint(Character.weapon + "                                         " + Character.weaponbag2[UI.counter], "green", attrs=["bold"])
+            cprint("SEBZÉS: " + str(weapon[Character.weapon]["attack"]) + "                                        " + "SEBZÉS: " + str(weapon[Character.weaponbag2[UI.counter]]["attack"]), "green", attrs=["bold"])
+        elif variables2.equipment_type == "armor":
+            cprint(Character.armor + "                                         " + Character.armorbag2[UI.counter], "green", attrs=["bold"])
+            cprint("PÁNCÉL: " + str(armor[Character.armor]["armor"]) + "                                        " + "PÁNCÉL: " + str(armor[Character.armorbag2[UI.counter]]["armor"]), "green", attrs=["bold"])
+        elif variables2.equipment_type == "helmet":
             cprint(Character.weapon + "                                         " + UI.inequipment2[UI.counter], "green", attrs=["bold"])
             cprint("SEBZÉS: " + str(weapon[Character.weapon]["attack"]) + "                                        " + "SEBZÉS: " + str(weapon[UI.inequipment2[UI.counter]]["attack"]), "green", attrs=["bold"])
             cprint(Character.helmet, "green", attrs=["bold"])
             cprint("HP: " + str(helmet[Character.helmet]["HP"]), "green", attrs=["bold"])
-        if variables2.equipment_type == "boots":
+        elif variables2.equipment_type == "boots":
             cprint(Character.weapon + "                                         " + UI.inequipment2[UI.counter], "green", attrs=["bold"])
             cprint("SEBZÉS: " + str(weapon[Character.weapon]["attack"]) + "                                        " + "SEBZÉS: " + str(weapon[UI.inequipment2[UI.counter]]["attack"]), "green", attrs=["bold"])
             cprint(Character.boots, "green", attrs=["bold"])
             cprint("HP: " + str(boots[Character.boots]["HP"]), "green", attrs=["bold"])
-        if variables2.equipment_type == "talisman":
+        elif variables2.equipment_type == "talisman":
             cprint(Character.talisman, "green", attrs=["bold"])
             cprint("SEBZÉS: " + str(talisman[Character.talisman]["attack"]), "green", attrs=["bold"])
             cprint("PÁNCÉL: " + str(talisman[Character.talisman]["armor"]), "green", attrs=["bold"])
             cprint("HP: " + str(talisman[Character.talisman]["HP"]), "green", attrs=["bold"])
+
+    def inequipmentup(list1, list2):
+        os.system("cls")
+        UI.navup(list1, list2)
+        UI.inequipmentlayout()
+        UI.navmenuprint(list1)
+    
+    def inequipmentdown(list1, list2):
+        os.system("cls")
+        UI.navdown(list1, list2)
+        UI.inequipmentlayout()
+        UI.navmenuprint(list1)
     
     def draw():
         cprint("==============================================================================", "red")
@@ -232,13 +239,13 @@ class UI:
 
     def start():
         tprint("vauvau    2", "tarty1")
-        tprint("PRE-ALPHA    0.1.0", "tarty1")
+        tprint("PRE-ALPHA    0.3.0", "tarty1")
         cprint("NYOMJ MEG BÁRMIT AZ INDULÁSHOZ!", "green", attrs=["bold"])
         input (">")
         UI.switchstate("menu")
     
     def rules():
-        cprint("\nSzámok beírásával tudsz navigálni." + "\n" + "A számokhoz tartozó parancsot mellette írva találod.", "green", attrs=["bold"])
+        cprint("\nFel-le nyíllal tudsz navigálni." + "\n" + "Enter lenyomásával kiválasztod az adott utasítást.", "green", attrs=["bold"])
 
     def tiledraw():
         icon =  Map.biom [Map.map[Character.pos_y][Character.pos_x]] ["icon"]

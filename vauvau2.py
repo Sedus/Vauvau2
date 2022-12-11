@@ -114,13 +114,13 @@ while True:
         
         if keypressed == "up":
             os.system("cls")
-            UI.shoplayout()
             UI.navup(UI.shop, UI.shop2)
+            UI.shoplayout()
             UI.navmenuprint(UI.shop)
         if keypressed == "down":
             os.system("cls")
-            UI.shoplayout()
             UI.navdown(UI.shop, UI.shop2)
+            UI.shoplayout()
             UI.navmenuprint(UI.shop)
         if keypressed == "enter":
             if UI.counter == 0:
@@ -217,15 +217,27 @@ while True:
         while keyboard.is_pressed("enter"): pass
         
         if keypressed == "up":
-            os.system("cls")
-            UI.navup(Character.bag, Character.bag2)
-            UI.inequipmentlayout()
-            UI.navmenuprint(Character.bag)
+            if variables2.equipment_type == "weapon":
+                UI.inequipmentup(Character.weaponbag, Character.weaponbag2)
+            elif variables2.equipment_type == "armor":
+                UI.inequipmentup(Character.armorbag, Character.armorbag2)
+            elif variables2.equipment_type == "helmet":
+                UI.inequipmentup(Character.helmetbag, Character.helmetbag2)
+            elif variables2.equipment_type == "boots":
+                UI.inequipmentup(Character.bootsbag, Character.bootsbag2)
+            elif variables2.equipment_type == "talisman":
+                UI.inequipmentup(Character.talismanbag, Character.talismanbag2)
         if keypressed == "down":
-            os.system("cls")
-            UI.navdown(Character.bag, Character.bag2)
-            UI.inequipmentlayout()
-            UI.navmenuprint(Character.bag)
+            if variables2.equipment_type == "weapon":
+                UI.inequipmentdown(Character.weaponbag, Character.weaponbag2)
+            elif variables2.equipment_type == "armor":
+                UI.inequipmentdown(Character.armorbag, Character.armorbag2)
+            elif variables2.equipment_type == "helmet":
+                UI.inequipmentdown(Character.helmetbag, Character.helmetbag2)
+            elif variables2.equipment_type == "boots":
+                UI.inequipmentup(Character.bootsbag, Character.bootsbag2)
+            elif variables2.equipment_type == "talisman":
+                UI.inequipmentup(Character.talismanbag, Character.talismanbag2)
         if keypressed == "enter":
             if UI.counter == 0:
                 pass

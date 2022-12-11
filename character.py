@@ -3,7 +3,7 @@ from items import *
 
 class Character:
 
-    def __init__(self, pos_x, pos_y, name, attack, HP, HPMAX, defense, gold, potion, elixir, weapon, armor, helmet, boots, talisman, bag, bag2):
+    def __init__(self, pos_x, pos_y, name, attack, HP, HPMAX, defense, gold, potion, elixir, weapon, armor, helmet, boots, talisman, weaponbag, weaponbag2, armorbag, armorbag2, helmetbag, helmetbag2, bootsbag, bootsbag2, talismanbag, talismanbag2):
         self.pos_x = pos_x
         self.pos_y = pos_y
         self.name = name
@@ -21,8 +21,16 @@ class Character:
         self.boots = boots
         self.talisman = talisman
 
-        self.bag = bag
-        self.bag2 = bag2
+        self.weaponbag = weaponbag
+        self.weaponbag2 = weaponbag2
+        self.armorbag = armorbag
+        self.armorbag2 = armorbag2
+        self.helmetbag = helmetbag
+        self.helmetbag2 = helmetbag2
+        self.bootsbag = bootsbag
+        self.bootsbag2 = bootsbag2
+        self.talismanbag = talismanbag
+        self.talismanbag2 = talismanbag2
     
     def attackplus(self):
 
@@ -82,7 +90,15 @@ Character.helmet = "Zsidó Kalap"
 Character.boots = "Zsidó Papucs"
 Character.talisman = "Zsidó Talizmán"
 
-Character.bag = ["Zsidó Kés", "Fasz Bökő", "Geci Szurony"]
-Character.bag2 = ["Zsidó Kés", "Fasz Bökő", "Geci Szurony"]
+Character.weaponbag = ["Zsidó Kés", "Geci Szurony"]
+Character.weaponbag2 = ["Zsidó Kés", "Geci Szurony"]
+Character.armorbag = ["Zsidó Ing", "Geci Vért"]
+Character.armorbag2 = ["Zsidó Ing", "Geci Vért"]
+Character.helmetbag = ["Zsidó Kalap"]
+Character.helmetbag2 = ["Zsidó Kalap"]
+Character.bootsbag = ["Zsidó Papucs"]
+Character.bootsbag2 = ["Zsidó Papucs"]
+Character.talismanbag = ["Zsidó Talizmán"]
+Character.talismanbag2 = ["Zsidó Talizmán"]
 
 Character.attackplus(Character)
