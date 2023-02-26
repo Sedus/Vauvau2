@@ -33,7 +33,6 @@ class Character:
         self.talismanbag2 = talismanbag2
     
     def attackplus(self):
-
         self.attack = 50
         self.defense = 2
         self.HP = 2000
@@ -84,21 +83,21 @@ Character.gold = 50
 Character.potion = 3
 Character.elixir = 1
 
-Character.weapon = "Zsidó Kés"
-Character.armor = "Zsidó Ing"
-Character.helmet = "Zsidó Kalap"
-Character.boots = "Zsidó Papucs"
-Character.talisman = "Zsidó Talizmán"
+Character.weapon = "Fasz Bökő"
+Character.armor = "Fasz Trikó"
+Character.helmet = "Fasz Szatyor"
+Character.boots = "Fasz Zokni"
+Character.talisman = "Fasz Talizmán"
 
-Character.weaponbag = ["Zsidó Kés", "Geci Szurony"]
-Character.weaponbag2 = ["Zsidó Kés", "Geci Szurony"]
-Character.armorbag = ["Zsidó Ing", "Geci Vért"]
-Character.armorbag2 = ["Zsidó Ing", "Geci Vért"]
-Character.helmetbag = ["Zsidó Kalap"]
-Character.helmetbag2 = ["Zsidó Kalap"]
-Character.bootsbag = ["Zsidó Papucs"]
-Character.bootsbag2 = ["Zsidó Papucs"]
-Character.talismanbag = ["Zsidó Talizmán"]
-Character.talismanbag2 = ["Zsidó Talizmán"]
+Character.weaponbag = ["Fasz Bökő", "Zsidó Kés"]
+Character.weaponbag2 = ["Fasz Bökő", "Zsidó Kés"]
+Character.armorbag = ["Fasz Trikó", "Zsidó Ing"]
+Character.armorbag2 = ["Fasz Trikó", "Zsidó Ing"]
+Character.helmetbag = ["Fasz Szatyor","Zsidó Kalap"]
+Character.helmetbag2 = ["Fasz Szatyor", "Zsidó Kalap"]
+Character.bootsbag = ["Fasz Zokni", "Zsidó Papucs"]
+Character.bootsbag2 = ["Fasz Zokni", "Zsidó Papucs"]
+Character.talismanbag = ["Fasz Talizmán", "Zsidó Talizmán"]
+Character.talismanbag2 = ["Fasz Talizmán", "Zsidó Talizmán"]
 
 Character.attackplus(Character)

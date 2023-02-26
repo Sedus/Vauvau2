@@ -68,14 +68,32 @@ class UI:
             UI.equipment[UI.counter] = "> " + UI.equipment[UI.counter] + " <"
             UI.navmenuprint(UI.equipment)
         if hova == "inequipment":
+            UI.counter = 0
             UI.state = hova
-            Character.weaponbag =  Character.weaponbag2.copy()
             variables2.loglist.clear()
             os.system("cls")
             UI.inequipmentlayout()
-            Character.weaponbag[UI.counter] = "> " +  Character.weaponbag[UI.counter] + " <"
-            UI.navmenuprint(Character.weaponbag)
-
+            if variables2.equipment_type == "weapon":
+                Character.weaponbag =  Character.weaponbag2.copy()
+                Character.weaponbag[UI.counter] = "> " +  Character.weaponbag[UI.counter] + " <"
+                UI.navmenuprint(Character.weaponbag)
+            elif variables2.equipment_type == "armor":
+                Character.armorbag =  Character.armorbag2.copy()
+                Character.armorbag[UI.counter] = "> " +  Character.armorbag[UI.counter] + " <"
+                UI.navmenuprint(Character.armorbag)
+            elif variables2.equipment_type == "helmet":
+                Character.helmetbag =  Character.helmetbag2.copy()
+                Character.helmetbag[UI.counter] = "> " +  Character.helmetbag[UI.counter] + " <"
+                UI.navmenuprint(Character.helmetbag)
+            elif variables2.equipment_type == "boots":
+                Character.bootsbag =  Character.bootsbag2.copy()
+                Character.bootsbag[UI.counter] = "> " +  Character.bootsbag[UI.counter] + " <"
+                UI.navmenuprint(Character.bootsbag)
+            elif variables2.equipment_type == "talisman":
+                Character.talismanbag =  Character.talismanbag2.copy()
+                Character.talismanbag[UI.counter] = "> " +  Character.talismanbag[UI.counter] + " <"
+                UI.navmenuprint(Character.talismanbag)
+    
     def navup(list1, list2):
         list1[UI.counter] = list2[UI.counter]
         UI.counter = (UI.counter - 1) % len(list1)
@@ -185,26 +203,22 @@ class UI:
     def inequipmentlayout():
         cprint("Felszerelt tárgy:                                 Kiválasztott tárgy:\n", "green", attrs=["bold"])
         if variables2.equipment_type == "weapon":
-            cprint(Character.weapon + "                                         " + Character.weaponbag2[UI.counter], "green", attrs=["bold"])
-            cprint("SEBZÉS: " + str(weapon[Character.weapon]["attack"]) + "                                        " + "SEBZÉS: " + str(weapon[Character.weaponbag2[UI.counter]]["attack"]), "green", attrs=["bold"])
+            cprint(Character.weapon + " " * (50 - len(Character.weapon)) + Character.weaponbag2[UI.counter], "green", attrs=["bold"])
+            cprint("SEBZÉS: " + str(weapon[Character.weapon]["attack"]) + " " * (42 - len(str(weapon[Character.weapon]["attack"]))) + "SEBZÉS: " + str(weapon[Character.weaponbag2[UI.counter]]["attack"]), "green", attrs=["bold"])
         elif variables2.equipment_type == "armor":
-            cprint(Character.armor + "                                         " + Character.armorbag2[UI.counter], "green", attrs=["bold"])
-            cprint("PÁNCÉL: " + str(armor[Character.armor]["armor"]) + "                                        " + "PÁNCÉL: " + str(armor[Character.armorbag2[UI.counter]]["armor"]), "green", attrs=["bold"])
+            cprint(Character.armor + " " * (50 - len(Character.armor)) + Character.armorbag2[UI.counter], "green", attrs=["bold"])
+            cprint("PÁNCÉL: " + str(armor[Character.armor]["armor"]) + " " * (42 - len(str(armor[Character.armor]["armor"]))) + "PÁNCÉL: " + str(armor[Character.armorbag2[UI.counter]]["armor"]), "green", attrs=["bold"])
         elif variables2.equipment_type == "helmet":
-            cprint(Character.weapon + "                                         " + UI.inequipment2[UI.counter], "green", attrs=["bold"])
-            cprint("SEBZÉS: " + str(weapon[Character.weapon]["attack"]) + "                                        " + "SEBZÉS: " + str(weapon[UI.inequipment2[UI.counter]]["attack"]), "green", attrs=["bold"])
-            cprint(Character.helmet, "green", attrs=["bold"])
-            cprint("HP: " + str(helmet[Character.helmet]["HP"]), "green", attrs=["bold"])
+            cprint(Character.helmet + " " * (50 - len(Character.helmet)) + Character.helmetbag2[UI.counter], "green", attrs=["bold"])
+            cprint("HP: " + str(helmet[Character.helmet]["HP"]) + " " * (46 - len(str(helmet[Character.helmet]["HP"]))) + "HP: " + str(helmet[Character.helmetbag2[UI.counter]]["HP"]), "green", attrs=["bold"])
         elif variables2.equipment_type == "boots":
-            cprint(Character.weapon + "                                         " + UI.inequipment2[UI.counter], "green", attrs=["bold"])
-            cprint("SEBZÉS: " + str(weapon[Character.weapon]["attack"]) + "                                        " + "SEBZÉS: " + str(weapon[UI.inequipment2[UI.counter]]["attack"]), "green", attrs=["bold"])
-            cprint(Character.boots, "green", attrs=["bold"])
-            cprint("HP: " + str(boots[Character.boots]["HP"]), "green", attrs=["bold"])
+            cprint(Character.boots + " " * (50 - len(Character.boots)) + Character.bootsbag2[UI.counter], "green", attrs=["bold"])
+            cprint("HP: " + str(boots[Character.boots]["HP"]) + " " * (46 - len(str(boots[Character.boots]["HP"]))) + "HP: " + str(boots[Character.bootsbag2[UI.counter]]["HP"]), "green", attrs=["bold"])
         elif variables2.equipment_type == "talisman":
-            cprint(Character.talisman, "green", attrs=["bold"])
-            cprint("SEBZÉS: " + str(talisman[Character.talisman]["attack"]), "green", attrs=["bold"])
-            cprint("PÁNCÉL: " + str(talisman[Character.talisman]["armor"]), "green", attrs=["bold"])
-            cprint("HP: " + str(talisman[Character.talisman]["HP"]), "green", attrs=["bold"])
+            cprint(Character.talisman + " " * (50 - len(Character.talisman)) + Character.talismanbag2[UI.counter], "green", attrs=["bold"])
+            cprint("SEBZÉS: " + str(talisman[Character.talisman]["attack"]) + " " * (42 - len(str(talisman[Character.talisman]["attack"]))) + "SEBZÉS: " + str(talisman[Character.talismanbag2[UI.counter]]["attack"]), "green", attrs=["bold"])
+            cprint("PÁNCÉL: " + str(talisman[Character.talisman]["armor"]) + " " * (42 - len(str(talisman[Character.talisman]["armor"]))) + "PÁNCÉL: " + str(talisman[Character.talismanbag2[UI.counter]]["armor"]), "green", attrs=["bold"])
+            cprint("HP: " + str(talisman[Character.talisman]["HP"]) + " " * (46 - len(str(talisman[Character.talisman]["HP"]))) + "HP: " + str(talisman[Character.talismanbag2[UI.counter]]["HP"]), "green", attrs=["bold"])
 
     def inequipmentup(list1, list2):
         os.system("cls")
@@ -217,9 +231,9 @@ class UI:
         UI.navdown(list1, list2)
         UI.inequipmentlayout()
         UI.navmenuprint(list1)
-    
+
     def draw():
-        cprint("==============================================================================", "red")
+        cprint("=" * 78, "red")
 
     def logprint():
         print("\n\n\n\n\n\n\n\n\n")

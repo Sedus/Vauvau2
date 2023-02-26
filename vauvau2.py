@@ -18,7 +18,7 @@ while True:
         while keyboard.is_pressed("down"): pass
         while keyboard.is_pressed("up"): pass
         while keyboard.is_pressed("enter"): pass
-        
+
         if keypressed == "up":
             os.system("cls")
             UI.navup(UI.menu, UI.menu2)
@@ -235,13 +235,33 @@ while True:
             elif variables2.equipment_type == "helmet":
                 UI.inequipmentdown(Character.helmetbag, Character.helmetbag2)
             elif variables2.equipment_type == "boots":
-                UI.inequipmentup(Character.bootsbag, Character.bootsbag2)
+                UI.inequipmentdown(Character.bootsbag, Character.bootsbag2)
             elif variables2.equipment_type == "talisman":
-                UI.inequipmentup(Character.talismanbag, Character.talismanbag2)
+                UI.inequipmentdown(Character.talismanbag, Character.talismanbag2)
         if keypressed == "enter":
-            if UI.counter == 0:
-                pass
-            if UI.counter == 1:
-                pass
-            if UI.counter == 2:
-                UI.switchstate("equipment")
+            if variables2.equipment_type == "weapon":
+                Character.weapon = Character.weaponbag2[UI.counter]
+                os.system("cls")
+                UI.inequipmentlayout()
+                UI.navmenuprint(Character.weaponbag)
+            elif variables2.equipment_type == "armor":
+                Character.armor = Character.armorbag2[UI.counter]
+                os.system("cls")
+                UI.inequipmentlayout()
+                UI.navmenuprint(Character.armorbag)
+            elif variables2.equipment_type == "helmet":
+                Character.helmet = Character.helmetbag2[UI.counter]
+                os.system("cls")
+                UI.inequipmentlayout()
+                UI.navmenuprint(Character.helmetbag)
+            elif variables2.equipment_type == "boots":
+                Character.boots = Character.bootsbag2[UI.counter]
+                os.system("cls")
+                UI.inequipmentlayout()
+                UI.navmenuprint(Character.bootsbag)
+            elif variables2.equipment_type == "talisman":
+                Character.talisman = Character.talismanbag2[UI.counter]
+                os.system("cls")
+                UI.inequipmentlayout()
+                UI.navmenuprint(Character.talismanbag)
+            UI.switchstate("equipment")
