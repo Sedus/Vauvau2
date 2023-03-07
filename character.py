@@ -32,27 +32,23 @@ class Character:
         self.talismanbag = talismanbag
         self.talismanbag2 = talismanbag2
     
-    def attackplus(self):
-        self.attack = 50
-        self.defense = 2
-        self.HP = 2000
-
+    def stat_calc(self, base_attack = 50, base_defense = 2, base_HP = 2000):
         if self.weapon in weapon.keys():
-            self.attack += weapon[self.weapon]["attack"]
+            self.attack = base_attack + weapon[self.weapon]["attack"]
 
         if self.armor in armor.keys():
-            self.defense += armor[self.armor]["armor"]
+            self.defense = base_defense + armor[self.armor]["armor"]
 
         if self.helmet in helmet.keys():
-            self.HP += helmet[self.helmet]["HP"]
+            self.HP = base_HP + helmet[self.helmet]["HP"]
 
         if self.boots in boots.keys():
-            self.HP += boots[self.boots]["HP"]
+            self.HP = base_HP + boots[self.boots]["HP"]
 
         if self.talisman in talisman.keys():
-            self.attack += talisman[self.talisman]["attack"]
-            self.defense += talisman[self.talisman]["armor"]
-            self.HP += talisman[self.talisman]["HP"]
+            self.attack = base_attack + talisman[self.talisman]["attack"]
+            self.defense = base_defense + talisman[self.talisman]["armor"]
+            self.HP = base_HP + talisman[self.talisman]["HP"]
     
     def heal(amount):
         Character.HP += amount
@@ -89,15 +85,15 @@ Character.helmet = "Fasz Szatyor"
 Character.boots = "Fasz Zokni"
 Character.talisman = "Fasz Talizmán"
 
-Character.weaponbag = ["Fasz Bökő", "Zsidó Kés"]
-Character.weaponbag2 = ["Fasz Bökő", "Zsidó Kés"]
-Character.armorbag = ["Fasz Trikó", "Zsidó Ing"]
-Character.armorbag2 = ["Fasz Trikó", "Zsidó Ing"]
-Character.helmetbag = ["Fasz Szatyor","Zsidó Kalap"]
-Character.helmetbag2 = ["Fasz Szatyor", "Zsidó Kalap"]
-Character.bootsbag = ["Fasz Zokni", "Zsidó Papucs"]
-Character.bootsbag2 = ["Fasz Zokni", "Zsidó Papucs"]
-Character.talismanbag = ["Fasz Talizmán", "Zsidó Talizmán"]
-Character.talismanbag2 = ["Fasz Talizmán", "Zsidó Talizmán"]
+Character.weaponbag = ["Fasz Bökő"]
+Character.weaponbag2 = ["Fasz Bökő"]
+Character.armorbag = ["Fasz Trikó"]
+Character.armorbag2 = ["Fasz Trikó"]
+Character.helmetbag = ["Fasz Szatyor"]
+Character.helmetbag2 = ["Fasz Szatyor"]
+Character.bootsbag = ["Fasz Zokni"]
+Character.bootsbag2 = ["Fasz Zokni"]
+Character.talismanbag = ["Fasz Talizmán"]
+Character.talismanbag2 = ["Fasz Talizmán"]
 
-Character.attackplus(Character)
+Character.stat_calc(Character)

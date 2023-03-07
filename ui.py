@@ -33,6 +33,7 @@ class UI:
             UI.menu[UI.counter] = "> " + UI.menu[UI.counter] + " <"
             UI.navmenuprint(UI.menu)
         if hova == "play":
+            Character.stat_calc(Character)
             UI.counter = 0
             UI.state = hova
             UI.play = UI.play2.copy()
