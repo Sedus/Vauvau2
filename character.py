@@ -85,8 +85,8 @@ Character.helmet = "Fasz Szatyor"
 Character.boots = "Fasz Zokni"
 Character.talisman = "Fasz Talizmán"
 
-Character.weaponbag = ["Fasz Bökő"]
-Character.weaponbag2 = ["Fasz Bökő"]
+Character.weaponbag = ["Geci Szurony", "Hugyos Kard", "Fasz Bökő"]
+Character.weaponbag2 = ["Geci Szurony", "Hugyos Kard", "Fasz Bökő"]
 Character.armorbag = ["Fasz Trikó"]
 Character.armorbag2 = ["Fasz Trikó"]
 Character.helmetbag = ["Fasz Szatyor"]

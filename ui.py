@@ -74,6 +74,8 @@ class UI:
             variables2.loglist.clear()
             os.system("cls")
             UI.inequipmentlayout()
+            Character.weaponbag = [[row [i] for row in sorted(weapon.items(), key = lambda x: x[1]["attack"])] for i in range(2)][0]
+            Character.weaponbag2 = [[row [i] for row in sorted(weapon.items(), key = lambda x: x[1]["attack"])] for i in range(2)][0]
             if variables2.equipment_type == "weapon":
                 Character.weaponbag =  Character.weaponbag2.copy()
                 Character.weaponbag[UI.counter] = "> " +  Character.weaponbag[UI.counter] + " <"
