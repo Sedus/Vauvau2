@@ -8,7 +8,7 @@ from enemy import *
 from items import *
 
 class UI:
-    def __init__(self, state, counter, menu, menu2, play, play2, shop, shop2, battle, battle2, equipment, equipment2, itemlist, itemlist2):
+    def __init__(self, state, counter, menu, menu2, play, play2, shop, shop2, battle, battle2, equipment, equipment2):
         self.state = state
         self.counter = counter
         self.menu = menu
@@ -21,8 +21,6 @@ class UI:
         self.battle2 = battle2
         self.equipment = equipment
         self.equipment2 = equipment2
-        self.itemlist = itemlist
-        self.itemlist2 = itemlist2
 
     def switchstate(hova):
         if hova == "menu":
@@ -69,13 +67,21 @@ class UI:
             UI.equipment[UI.counter] = "> " + UI.equipment[UI.counter] + " <"
             UI.navmenuprint(UI.equipment)
         if hova == "inequipment":
+            Character.weaponbag = [i[1] for i in sorted(((i[1]["attack"],i[0]) for i in weapon.items() if i[0] in set(Character.weaponbag)))]
+            Character.weaponbag2 = [i[1] for i in sorted(((i[1]["attack"],i[0]) for i in weapon.items() if i[0] in set(Character.weaponbag2)))]
+            Character.armorbag = [i[1] for i in sorted(((i[1]["armor"],i[0]) for i in armor.items() if i[0] in set(Character.armorbag)))]
+            Character.armorbag2 = [i[1] for i in sorted(((i[1]["armor"],i[0]) for i in armor.items() if i[0] in set(Character.armorbag2)))]
+            Character.helmetbag = [i[1] for i in sorted(((i[1]["HP"],i[0]) for i in helmet.items() if i[0] in set(Character.helmetbag)))]
+            Character.helmetbag2 = [i[1] for i in sorted(((i[1]["HP"],i[0]) for i in helmet.items() if i[0] in set(Character.helmetbag2)))]
+            Character.bootsbag = [i[1] for i in sorted(((i[1]["HP"],i[0]) for i in boots.items() if i[0] in set(Character.bootsbag)))]
+            Character.bootsbag2 = [i[1] for i in sorted(((i[1]["HP"],i[0]) for i in boots.items() if i[0] in set(Character.bootsbag2)))]
+            Character.talismanbag = [i[1] for i in sorted(((i[1]["attack"],i[0]) for i in talisman.items() if i[0] in set(Character.talismanbag)))]
+            Character.talismanbag2 = [i[1] for i in sorted(((i[1]["attack"],i[0]) for i in talisman.items() if i[0] in set(Character.talismanbag2)))]
             UI.counter = 0
             UI.state = hova
             variables2.loglist.clear()
             os.system("cls")
             UI.inequipmentlayout()
-            Character.weaponbag = [[row [i] for row in sorted(weapon.items(), key = lambda x: x[1]["attack"])] for i in range(2)][0]
-            Character.weaponbag2 = [[row [i] for row in sorted(weapon.items(), key = lambda x: x[1]["attack"])] for i in range(2)][0]
             if variables2.equipment_type == "weapon":
                 Character.weaponbag =  Character.weaponbag2.copy()
                 Character.weaponbag[UI.counter] = "> " +  Character.weaponbag[UI.counter] + " <"
@@ -96,7 +102,7 @@ class UI:
                 Character.talismanbag =  Character.talismanbag2.copy()
                 Character.talismanbag[UI.counter] = "> " +  Character.talismanbag[UI.counter] + " <"
                 UI.navmenuprint(Character.talismanbag)
-    
+
     def navup(list1, list2):
         list1[UI.counter] = list2[UI.counter]
         UI.counter = (UI.counter - 1) % len(list1)
@@ -111,11 +117,11 @@ class UI:
         UI.draw()
         cprint("JELENLEGI POZÍCIÓ: " + Map.biom[Map.map[Character.pos_y][Character.pos_x]]["name"], "green", attrs=["bold"])
         UI.draw()
-        cprint("NÉV: " + Character.name, "green", attrs=["bold"])
-        cprint("ÉLET: " + str(Character.HP) + "/" + str(Character.HPMAX), "green", attrs=["bold"])
-        cprint("SEBZÉS: " + str(Character.attack), "green", attrs=["bold"])
-        cprint("PÁNCÉL: " + str(Character.defense), "green", attrs=["bold"])
-        cprint("GYÓGYITAL: " + str(Character.potion) + " darab", "green", attrs=["bold"])
+        cprint("NÉV: " + Character.name + " " * (50 - len("NÉV: " + Character.name)) + "FEGYVER: " + Character.weapon, "green", attrs=["bold"])
+        cprint("ÉLET: " + str(Character.HP) + "/" + str(Character.HPMAX) + " " * (50 - len("ÉLET: " + str(Character.HP) + "/" + str(Character.HPMAX))) + "VÉRT: " + Character.armor, "green", attrs=["bold"])
+        cprint("SEBZÉS: " + str(Character.attack) + " " * (50 - len(str("SEBZÉS: " + str(Character.attack)))) + "SISAK: " + Character.helmet, "green", attrs=["bold"])
+        cprint("PÁNCÉL: " + str(Character.defense) + " " * (50 - len(str("PÁNCÉL: " + str(Character.defense)))) + "CIPŐ: " + Character.boots, "green", attrs=["bold"])
+        cprint("GYÓGYITAL: " + str(Character.potion) + " darab" + " " * (50 - len(str("GYÓGYITAL: " + str(Character.potion) + " darab"))) + "TALIZMÁN: " + Character.talisman, "green", attrs=["bold"])
         cprint("ELIXÍR: " + str(Character.elixir) + " darab", "green", attrs=["bold"])
         cprint("ARANY: " + str(Character.gold) + "$", "green", attrs=["bold"])
 
@@ -256,7 +262,7 @@ class UI:
 
     def start():
         tprint("vauvau    2", "tarty1")
-        tprint("PRE-ALPHA    0.3.0", "tarty1")
+        tprint("PRE-ALPHA    0.5.0", "tarty1")
         cprint("NYOMJ MEG BÁRMIT AZ INDULÁSHOZ!", "green", attrs=["bold"])
         input (">")
         UI.switchstate("menu")

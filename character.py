@@ -91,9 +91,9 @@ Character.armorbag = ["Fasz Trikó"]
 Character.armorbag2 = ["Fasz Trikó"]
 Character.helmetbag = ["Fasz Szatyor"]
 Character.helmetbag2 = ["Fasz Szatyor"]
-Character.bootsbag = ["Fasz Zokni"]
-Character.bootsbag2 = ["Fasz Zokni"]
-Character.talismanbag = ["Fasz Talizmán"]
-Character.talismanbag2 = ["Fasz Talizmán"]
+Character.bootsbag = ["Hugyos Szandál", "Fasz Zokni"]
+Character.bootsbag2 = ["Hugyos Szandál", "Fasz Zokni"]
+Character.talismanbag = ["Hugyos Talizmán", "Fasz Talizmán"]
+Character.talismanbag2 = ["Hugyos Talizmán", "Fasz Talizmán"]
 
 Character.stat_calc(Character)
