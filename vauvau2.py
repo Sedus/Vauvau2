@@ -195,7 +195,7 @@ while True:
             if UI.counter == 0:
                 variables2.equipment_type = "weapon"
                 UI.switchstate("inequipment") # FEGYVER
-            if UI.counter == 1:
+            if UI.counter == 1: 
                 variables2.equipment_type = "armor"
                 UI.switchstate("inequipment") # VÉRT
             if UI.counter == 2:

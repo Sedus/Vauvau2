@@ -33,22 +33,9 @@ class Character:
         self.talismanbag2 = talismanbag2
     
     def stat_calc(self, base_attack = 50, base_defense = 2, base_HP = 2000):
-        if self.weapon in weapon.keys():
-            self.attack = base_attack + weapon[self.weapon]["attack"]
-
-        if self.armor in armor.keys():
-            self.defense = base_defense + armor[self.armor]["armor"]
-
-        if self.helmet in helmet.keys():
-            self.HP = base_HP + helmet[self.helmet]["HP"]
-
-        if self.boots in boots.keys():
-            self.HP = base_HP + boots[self.boots]["HP"]
-
-        if self.talisman in talisman.keys():
-            self.attack = base_attack + talisman[self.talisman]["attack"]
-            self.defense = base_defense + talisman[self.talisman]["armor"]
-            self.HP = base_HP + talisman[self.talisman]["HP"]
+        self.defense =  base_defense + armor[self.armor]["armor"] + talisman[self.talisman]["armor"]
+        self.HP = base_HP + helmet[self.helmet]["HP"] + boots[self.boots]["HP"] + talisman[self.talisman]["HP"]
+        self.attack = base_attack + weapon[self.weapon]["attack"] + talisman[self.talisman]["attack"]
     
     def heal(amount):
         Character.HP += amount
@@ -85,8 +72,8 @@ Character.helmet = "Fasz Szatyor"
 Character.boots = "Fasz Zokni"
 Character.talisman = "Fasz Talizmán"
 
-Character.weaponbag = ["Geci Szurony", "Hugyos Kard", "Fasz Bökő"]
-Character.weaponbag2 = ["Geci Szurony", "Hugyos Kard", "Fasz Bökő"]
+Character.weaponbag = ["Hugyos Kard", "Fasz Bökő"]
+Character.weaponbag2 = ["Hugyos Kard", "Fasz Bökő"]
 Character.armorbag = ["Fasz Trikó"]
 Character.armorbag2 = ["Fasz Trikó"]
 Character.helmetbag = ["Fasz Szatyor"]
@@ -95,5 +82,3 @@ Character.bootsbag = ["Hugyos Szandál", "Fasz Zokni"]
 Character.bootsbag2 = ["Hugyos Szandál", "Fasz Zokni"]
 Character.talismanbag = ["Hugyos Talizmán", "Fasz Talizmán"]
 Character.talismanbag2 = ["Hugyos Talizmán", "Fasz Talizmán"]
-
-Character.stat_calc(Character)
