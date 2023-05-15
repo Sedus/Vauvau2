@@ -1,4 +1,6 @@
 from character import *
+from common_functions import *
+import random
 
 class Map:
     def __init__(self, map, map2, len_x, len_y, tiles, biom):
@@ -13,9 +15,9 @@ class Map:
         for number5 in range(5):
             innerlist = []
             for number7 in range(7):
-                #abc = listToString(random.choices(Map.tiles))
+                abc = listToString(random.choices(Map.tiles))
                 #abc = "bolt"
-                abc = "erdő"
+                #abc = "erdő"
                 innerlist.append(abc)
             Map.map.append(innerlist)
         Map.len_y = len(Map.map)-1
@@ -54,7 +56,7 @@ Map.biom = {
         "icon": "$"},
     "béla": {
         "name": "BÉLA",
-        "spawn_enemy": True,
+        "spawn_enemy": False,
         "icon": "¤"},
     "küldetés": {
         "name": "KÜLDETÉS",

@@ -1,4 +1,4 @@
-python3 == 3.11.2
+python3 == 3.11.3
 art
 termcolor
 keyboard

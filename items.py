@@ -1,15 +1,19 @@
 weapon = {
-    "Fasz Bökő": {"attack": 5},
-    "Zsidó Kés": {"attack": 10},
-    "Hugyos Kard": {"attack": 20},
-    "Geci Szurony": {"attack": 40}
+    "Egyszerű Fasz Bökő": {"attack": 2, "rarity": "white"}, #COMMON
+    "Szokatlan Fasz Bökő": {"attack": 5, "rarity": "green"}, #UNCOMMON
+    "Ritka Fasz Bökő": {"attack": 8, "rarity": "blue"}, #RARE
+    "Epikus Fasz Bökő": {"attack": 11, "rarity": "magenta"}, #EPIC
+    "Legendás Fasz Bökő": {"attack": 15, "rarity": "yellow"}, #LEGENDARY
+    "Főnix Fasz Bökő": {"attack": 20, "rarity": ("white", "green", "magenta", "red", "cyan")}, #EXOTIC
     }
 
 armor = {
-    "Fasz Trikó": {"armor": 5},
-    "Zsidó Ing": {"armor": 10},
-    "Hugyos Póló": {"armor": 20},
-    "Geci Vért": {"armor": 40}
+    "Rongyos Bőrvért": {"armor": 5, "rarity": "white"},
+    "Hímzett Selyemköpeny": {"armor": 10, "rarity": "green"},
+    "Adamantium Lemezpáncél": {"armor": 20, "rarity": "blue"},
+    "Viharégette Harci Páncél": {"armor": 40, "rarity": "magenta"},
+    "Ősi Sárkánybőr Vértezet": {"armor": 80, "rarity": "yellow"},
+    "Halhatatlan Őrszem Kardvértezet": {"armor": 160, "rarity": ("white", "green", "magenta", "red", "cyan")}
     }
 
 helmet = {

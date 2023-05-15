@@ -1,6 +1,6 @@
 import os
 from variables2 import *
-from termcolor import cprint
+from termcolor import cprint, colored
 from art import tprint
 from character import *
 from map import *
@@ -126,25 +126,6 @@ class UI:
         cprint("ARANY: " + str(Character.gold) + "$", "green", attrs=["bold"])
 
     def shoplayout():
-        cprint("""
-                (
-        
-                )
-                ( _   _._
-                |_|-'_~_`-._
-            _.-'-_~_-~_-~-_`-._
-        _.-'_~-_~-_-~-_~_~-_~-_`-._
-        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-            |  []  []   []   []  [] |
-            |           __    ___   |   
-        ._|  []  []  | .|  [___]  |_._._._._._._._._._._._._._._._._.  
-        |=|________()|__|()_______|=|=|=|=|=|=|=|=|=|=|=|=|=|=|=|=|=| 
-        ^^^^^^^^^^^^^^^ === ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  
-                          ===   
-                            === 
-                              ===
-                                ===
-        """, "white", attrs=["bold"])
         UI.draw()
         cprint("ÉLET: " + str(Character.HP) + "/" + str(Character.HPMAX), "green", attrs=["bold"])
         cprint("SEBZÉS: " + str(Character.attack), "green", attrs=["bold"])
@@ -175,33 +156,6 @@ class UI:
         cprint("ARANY: " + str(Character.gold) + "$", "green", attrs=["bold"])
 
     def equipmentlayout():
-        cprint("""
-                           .-.
-                          {{#}}
-          {}               8@8
-        .::::.             888
-    @\\/W\/\/W\//@         8@8
-     \\/^\/\/^\//     _    )8(    _
-      \_O_{}_O_/     (@)__/8@8\__(@)
- ____________________ `~"-=):(=-"~`
-|<><><>  |  |  <><><>|     |.|
-|<>      |  |      <>|     |S|
-|<>      |  |      <>|     |'|
-|<>   .--------.   <>|     |.|
-|     |   ()   |     |     |P|
-|_____| (O\/O) |_____|     |'|
-|     \   /\   /     |     |.|
-|------\  \/  /------|     |U|
-|       '.__.'       |     |'|
-|        |  |        |     |.|
-:        |  |        :     |N|
- \       |  |       /      |'|
-  \<>    |  |    <>/       |.|
-   \<>   |  |   <>/        |K|
-    `\<> |  | <>/'         |'|
-      `-.|__|.-`           \ /
-                            ˇ
-        """, "green", attrs=["bold"])
         UI.draw()
         cprint("FEGYVER: " + Character.weapon, "green", attrs=["bold"])
         cprint("VÉRT: " + Character.armor, "green", attrs=["bold"])
@@ -209,21 +163,41 @@ class UI:
         cprint("CIPŐ: " + Character.boots, "green", attrs=["bold"])
         cprint("TALIZMÁN: " + Character.talisman, "green", attrs=["bold"])
 
+    def print_colored_text(text, rarity):
+        if isinstance(rarity, tuple):
+            for char in text:
+                color = random.choice(rarity)
+                print(colored(char, color=color), end="")
+        else:
+            color = rarity
+            print(colored(text, color=color), end="")
+
     def inequipmentlayout():
-        cprint("Felszerelt tárgy:                                 Kiválasztott tárgy:\n", "green", attrs=["bold"])
         if variables2.equipment_type == "weapon":
-            cprint(Character.weapon + " " * (50 - len(Character.weapon)) + Character.weaponbag2[UI.counter], "green", attrs=["bold"])
-            cprint("SEBZÉS: " + str(weapon[Character.weapon]["attack"]) + " " * (42 - len(str(weapon[Character.weapon]["attack"]))) + "SEBZÉS: " + str(weapon[Character.weaponbag2[UI.counter]]["attack"]), "green", attrs=["bold"])
+            rarity = weapon[Character.weaponbag2[UI.counter]]["rarity"]
+            UI.print_colored_text(UI.weaponstring, rarity)
+            UI.print_colored_text("\nFelszerelt tárgy:                                 Kiválasztott tárgy:\n", rarity)
+            UI.print_colored_text(str(Character.weapon + " " * (50 - len(Character.weapon)) + Character.weaponbag2[UI.counter] + "\n"), rarity)
+            UI.print_colored_text("SEBZÉS: " + str(weapon[Character.weapon]["attack"]) + " " * (42 - len(str(weapon[Character.weapon]["attack"]))) + "SEBZÉS: " + str(weapon[Character.weaponbag2[UI.counter]]["attack"]) + "\n", rarity)
         elif variables2.equipment_type == "armor":
-            cprint(Character.armor + " " * (50 - len(Character.armor)) + Character.armorbag2[UI.counter], "green", attrs=["bold"])
-            cprint("PÁNCÉL: " + str(armor[Character.armor]["armor"]) + " " * (42 - len(str(armor[Character.armor]["armor"]))) + "PÁNCÉL: " + str(armor[Character.armorbag2[UI.counter]]["armor"]), "green", attrs=["bold"])
+            rarity = armor[Character.armorbag2[UI.counter]]["rarity"]
+            UI.print_colored_text(UI.armorstring, rarity)
+            UI.print_colored_text("\nFelszerelt tárgy:                                 Kiválasztott tárgy:\n", rarity)
+            UI.print_colored_text(str(Character.armor + " " * (50 - len(Character.armor)) + Character.armorbag2[UI.counter] + "\n"), rarity)
+            UI.print_colored_text("PÁNCÉL: " + str(armor[Character.armor]["armor"]) + " " * (42 - len(str(armor[Character.armor]["armor"]))) + "PÁNCÉL: " + str(armor[Character.armorbag2[UI.counter]]["armor"]) + "\n", rarity)
         elif variables2.equipment_type == "helmet":
+            UI.helmet_print()
+            cprint("Felszerelt tárgy:                                 Kiválasztott tárgy:\n", "green", attrs=["bold"])
             cprint(Character.helmet + " " * (50 - len(Character.helmet)) + Character.helmetbag2[UI.counter], "green", attrs=["bold"])
             cprint("HP: " + str(helmet[Character.helmet]["HP"]) + " " * (46 - len(str(helmet[Character.helmet]["HP"]))) + "HP: " + str(helmet[Character.helmetbag2[UI.counter]]["HP"]), "green", attrs=["bold"])
         elif variables2.equipment_type == "boots":
+            UI.boots_print()
+            cprint("Felszerelt tárgy:                                 Kiválasztott tárgy:\n", "green", attrs=["bold"])
             cprint(Character.boots + " " * (50 - len(Character.boots)) + Character.bootsbag2[UI.counter], "green", attrs=["bold"])
             cprint("HP: " + str(boots[Character.boots]["HP"]) + " " * (46 - len(str(boots[Character.boots]["HP"]))) + "HP: " + str(boots[Character.bootsbag2[UI.counter]]["HP"]), "green", attrs=["bold"])
         elif variables2.equipment_type == "talisman":
+            UI.talisman_print()
+            cprint("Felszerelt tárgy:                                 Kiválasztott tárgy:\n", "green", attrs=["bold"])
             cprint(Character.talisman + " " * (50 - len(Character.talisman)) + Character.talismanbag2[UI.counter], "green", attrs=["bold"])
             cprint("SEBZÉS: " + str(talisman[Character.talisman]["attack"]) + " " * (42 - len(str(talisman[Character.talisman]["attack"]))) + "SEBZÉS: " + str(talisman[Character.talismanbag2[UI.counter]]["attack"]), "green", attrs=["bold"])
             cprint("PÁNCÉL: " + str(talisman[Character.talisman]["armor"]) + " " * (42 - len(str(talisman[Character.talisman]["armor"]))) + "PÁNCÉL: " + str(talisman[Character.talismanbag2[UI.counter]]["armor"]), "green", attrs=["bold"])
@@ -309,6 +283,108 @@ class UI:
                           _/,/'
                         /,/,"
     """, "green", attrs=["bold"])
+
+    weaponstring = ("""
+._._._._._._._._._|__________________________________________________________
+|_|_|_|_|_|_|_|_|_|_________________________________________________________/
+                  |
+    """)
+
+    armorstring = ("""
+                     _________________________ 
+                    |<><><>     |  |    <><><>|
+                    |<>         |  |        <>|
+                    |           |  |          |
+                    |  (______ <\-/> ______)  |
+                    |  /_.-=-.\| " |/.-=-._\  | 
+                    |   /_    \(o_o)/    _\   |
+                    |    /_  /\/ ^ \/\  _\    |
+                    |      \/ | / \ | \/      |
+                    |_______ /((( )))\ _______|
+                    |      __\ \___/ /__      |
+                    |--- (((---'   '---))) ---|
+                    |           |  |          |
+                    |           |  |          |
+                    :           |  |          :     
+                     \<>        |  |       <>/      
+                      \<>       |  |      <>/       
+                       \<>      |  |     <>/       
+                        `\<>    |  |   <>/'         
+                          `\<>  |  |  <>/'         
+                            `\<>|  |<>/'         
+                              `-.  .-`           
+                                '--'
+    """)
+
+    def helmet_print():
+        cprint("""                                                   
+        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣤⣤⣶⣦⣤⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⣶⣿⣿⣿⣿⣿⣿⣿⣿⣿⣆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣾⣆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣴⠁⠀⣠⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣶⣾⣿⣿⣿⣿⣿⡟⠁⢶⣿⣿⣿⣿⣿⣿⡿⠏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠻⣿⣿⣿⣿⣿⡿⠋⠀⠀⢠⣟⠭⠭⠭⣻⡉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡤⠶⣍⠲⡀⠀⢀⠖⣩⠶⢤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⠋⠀⠀⠘⡆⣇⠀⡸⢰⠃⠀⠀⠙⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⢹⢸⠀⡇⡏⠀⠀⠀⡀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⢿⠛⠦⠴⣀⣾⣾⣀⣷⣣⣀⠶⠔⠛⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⣿⡷⣦⣄⣀⣀⡀⠀⢀⣀⣀⣠⣴⢰⢿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢻⣧⣝⡻⠿⣿⣿⣿⣿⣿⠿⢟⣫⣼⡞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⢸⢹⡟⣖⡆⠀⢰⣲⢫⡏⡇⡿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡠⣿⢸⣾⡇⣿⣿⠀⡜⣿⢸⣿⡇⡷⢄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⡔⠋⡀⣿⣯⡃⣿⢿⣿⠀⡇⡿⣿⢛⣵⣷⢀⠙⢦⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣇⢧⣶⠚⠂⠀⠙⠷⣬⣻⠀⣇⣥⠞⠋⠀⠐⠓⣶⡼⣸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠢⡑⢤⡀⠀⠀⠀⠀⠘⠋⠃⠀⠀⠀⠀⢀⡤⢊⠔⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠲⢝⡲⣄⡀⠀⠐⠒⠂⠀⢀⡠⢖⡩⠖⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠒⢭⣒⢴⣲⡦⣚⡭⠒⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠓⠤⠚⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+    """, "red", attrs=["bold"])
+
+    def boots_print():
+        cprint("""                                                                                                                                        
+    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣸⣷⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⣿⠓⣶⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⠛⢷⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⣿⣿⣇⣾⣿⣷⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣿⡏⠀⣰⣿⣿⣿⣿⣿⡆⠀ ⠀⢠⣿⣿⣿⣿⣿⣿⣿⠙⡆⠀⠀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣧⣬⣿⣿⣿⣿⣿⣻⣷⣤⣤⠀⣿⣿⣿⣿⣯⣿⣿⣿⢄⣗⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡏⠀⢻⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢻⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠈⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢻⣿⣿⣿⠃⢻⣿⣿⣿⠀⠀⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⣇⣼⣿⣿⡿⠀⠀⠀⢿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀⠸⣿⣿⣿⣿⣿⣿⣿⡿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⣿⣿⣿⣿⣿⣿⡿⠀⠀⠀⠀⠀⢿⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠐⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀⢹⣿⣿⣿⣿⣿⣿⡃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⣿⣿⣿⣿⣿⠁⠀⠀⠀⠀⠀⠘⣿⣿⣿⣿⣿⡿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣸⣿⣿⣿⣿⡏⠀⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⡿⢿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⣿⣿⣥⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣼⣿⣥⣾⣿⣿⣿⣿⡄⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⡻⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣾⢿⡻⣿⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀⢀⣿⣿⣿⣽⣷⣧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡴⠺⠃⢤⣣⣿⣿⣿⣿⣿⣿⣿⣿⣿⠆⠀⠀⠀⣀⣼⣿⣿⣿⣮⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⠀⠀⠀⣠⣾⠶⢾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿   ⣿⣿⣿⣿⣿⡯⡭⢿⡻⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⠀⠀⠀⠙⠛⠛⠛⠛⠛⠋⠉⠉⠉⠀⠀⠀⠀⠀⠀⠀⠀⠉⠙⢿⣿⣿⣿⣿⠿⠻⢭⣿⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⣿⣿⣟⡀⠀⠀⢈⣿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠻⣿⣷⣶⡿⠟⠊⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+    """, "green", attrs=["bold"])
+
+    def talisman_print():
+        cprint("""
+                ⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣠⣤⣤⣤⣤⣤⣤⣄⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+                ⠀⠀⠀⠀⠀⠀⠀⣠⠾⠛⠉⠉⠉⠁⠀⠀⠉⠉⠉⠉⠛⠷⣄⠀⠀⠀⠀⠀⠀⠀
+                ⠀⠀⠀⠀⠀⠀⢸⡏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⡇⠀⠀⠀⠀⠀⠀
+                ⠀⠀⠀⠀⠀⠀⢸⣇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣸⠇⠀⠀⠀⠀⠀⠀
+                ⠀⠀⠀⠀⠀⠀⠀⠹⣧⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣾⠏⠀⠀⠀⠀⠀⠀⠀
+                ⠀⠀⠀⠀⠀⠀⠀⠀⠈⢿⣄⠀⠀⠀⠀⠀⠀⠀⠀⢠⡿⠃⠀⠀⠀⠀⠀⠀⠀⠀
+                ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢿⡄⠀⠀⠀⠀⠀⠀⢀⡿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀
+                ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⣷⡀⠀⠀⠀⠀⢀⣾⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+                ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⣷⡀⢀⠀⢀⣾⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+                ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣗⠒⠨⢥⣾⣦⠬⠑⠒⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+                ⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣸⣤⣄⣸⠏⢿⣀⣤⣴⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+                ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢻⣿⣍⡉⠁⠉⣉⣽⣿⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+                ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡸⢀⣼⣁⣠⣀⣹⣄⠘⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+                ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠰⠷⢾⣿⠿⠉⠹⢿⣿⡶⠷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+                ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠁⠀⠀⠀⠀⠉⠁
+""", "green", attrs=["bold"])
 
 UI.state = None
 UI.counter = 0
