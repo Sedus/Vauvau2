@@ -186,15 +186,17 @@ class UI:
             UI.print_colored_text(str(Character.armor + " " * (50 - len(Character.armor)) + Character.armorbag2[UI.counter] + "\n"), rarity)
             UI.print_colored_text("PÁNCÉL: " + str(armor[Character.armor]["armor"]) + " " * (42 - len(str(armor[Character.armor]["armor"]))) + "PÁNCÉL: " + str(armor[Character.armorbag2[UI.counter]]["armor"]) + "\n", rarity)
         elif variables2.equipment_type == "helmet":
-            UI.helmet_print()
-            cprint("Felszerelt tárgy:                                 Kiválasztott tárgy:\n", "green", attrs=["bold"])
-            cprint(Character.helmet + " " * (50 - len(Character.helmet)) + Character.helmetbag2[UI.counter], "green", attrs=["bold"])
-            cprint("HP: " + str(helmet[Character.helmet]["HP"]) + " " * (46 - len(str(helmet[Character.helmet]["HP"]))) + "HP: " + str(helmet[Character.helmetbag2[UI.counter]]["HP"]), "green", attrs=["bold"])
+            rarity = helmet[Character.helmetbag2[UI.counter]]["rarity"]
+            UI.print_colored_text(UI.helmetstring, rarity)
+            UI.print_colored_text("\nFelszerelt tárgy:                                 Kiválasztott tárgy:\n", rarity)
+            UI.print_colored_text(str(Character.helmet + " " * (50 - len(Character.helmet)) + Character.helmetbag2[UI.counter] + "\n"), rarity)
+            UI.print_colored_text("HP: " + str(helmet[Character.helmet]["HP"]) + " " * (46 - len(str(helmet[Character.helmet]["HP"]))) + "HP: " + str(helmet[Character.helmetbag2[UI.counter]]["HP"]) + "\n", rarity)
         elif variables2.equipment_type == "boots":
-            UI.boots_print()
-            cprint("Felszerelt tárgy:                                 Kiválasztott tárgy:\n", "green", attrs=["bold"])
-            cprint(Character.boots + " " * (50 - len(Character.boots)) + Character.bootsbag2[UI.counter], "green", attrs=["bold"])
-            cprint("HP: " + str(boots[Character.boots]["HP"]) + " " * (46 - len(str(boots[Character.boots]["HP"]))) + "HP: " + str(boots[Character.bootsbag2[UI.counter]]["HP"]), "green", attrs=["bold"])
+            rarity = boots[Character.bootsbag2[UI.counter]]["rarity"]
+            UI.print_colored_text(UI.bootsstring, rarity)
+            UI.print_colored_text("\nFelszerelt tárgy:                                 Kiválasztott tárgy:\n", rarity)
+            UI.print_colored_text(str(Character.boots + " " * (50 - len(Character.boots)) + Character.bootsbag2[UI.counter] + "\n"), rarity)
+            UI.print_colored_text("HP: " + str(boots[Character.boots]["HP"]) + " " * (46 - len(str(boots[Character.boots]["HP"]))) + "HP: " + str(boots[Character.bootsbag2[UI.counter]]["HP"]) + "\n", rarity)
         elif variables2.equipment_type == "talisman":
             UI.talisman_print()
             cprint("Felszerelt tárgy:                                 Kiválasztott tárgy:\n", "green", attrs=["bold"])
@@ -316,56 +318,39 @@ class UI:
                                 '--'
     """)
 
-    def helmet_print():
-        cprint("""                                                   
-        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣤⣤⣶⣦⣤⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⣶⣿⣿⣿⣿⣿⣿⣿⣿⣿⣆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣾⣆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣴⠁⠀⣠⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣶⣾⣿⣿⣿⣿⣿⡟⠁⢶⣿⣿⣿⣿⣿⣿⡿⠏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠻⣿⣿⣿⣿⣿⡿⠋⠀⠀⢠⣟⠭⠭⠭⣻⡉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡤⠶⣍⠲⡀⠀⢀⠖⣩⠶⢤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⠋⠀⠀⠘⡆⣇⠀⡸⢰⠃⠀⠀⠙⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⢹⢸⠀⡇⡏⠀⠀⠀⡀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⢿⠛⠦⠴⣀⣾⣾⣀⣷⣣⣀⠶⠔⠛⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⣿⡷⣦⣄⣀⣀⡀⠀⢀⣀⣀⣠⣴⢰⢿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢻⣧⣝⡻⠿⣿⣿⣿⣿⣿⠿⢟⣫⣼⡞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⢸⢹⡟⣖⡆⠀⢰⣲⢫⡏⡇⡿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡠⣿⢸⣾⡇⣿⣿⠀⡜⣿⢸⣿⡇⡷⢄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⡔⠋⡀⣿⣯⡃⣿⢿⣿⠀⡇⡿⣿⢛⣵⣷⢀⠙⢦⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣇⢧⣶⠚⠂⠀⠙⠷⣬⣻⠀⣇⣥⠞⠋⠀⠐⠓⣶⡼⣸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠢⡑⢤⡀⠀⠀⠀⠀⠘⠋⠃⠀⠀⠀⠀⢀⡤⢊⠔⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠲⢝⡲⣄⡀⠀⠐⠒⠂⠀⢀⡠⢖⡩⠖⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠒⢭⣒⢴⣲⡦⣚⡭⠒⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠓⠤⠚⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-    """, "red", attrs=["bold"])
+    helmetstring = ("""                                                   
+                                _
+                                ,''/., _
+                        `.-._\`/. ( //'/'`.
+                    _.-`-. ``' ` `(   -. \\
+                    ,'  ,    ,-:._ _..-.. \/
+                / ,'/ ,`.( _.'-'.     )/
+                `.\ '(   ,'      `.
+                    `._\ /'       \ \\
+                        /:         \ \-.
+                        ,;':._______...-'_)
+                        \:/-.._______..-_|
+                        : :\   `----'|'-;
+                        \ :\    : : ;:/
+                        \ ``.   ; /;/
+                            )   `.  /,'
+                        ,'      `-' \\
+                        /  .--.       )
+                        /_.---._`._   /
+                                `.__.'
+    """)
 
-    def boots_print():
-        cprint("""                                                                                                                                        
-    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣸⣷⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⣿⠓⣶⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⠛⢷⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⣿⣿⣇⣾⣿⣷⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣿⡏⠀⣰⣿⣿⣿⣿⣿⡆⠀ ⠀⢠⣿⣿⣿⣿⣿⣿⣿⠙⡆⠀⠀⠀⠀⠀⠀⠀⠀
-    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣧⣬⣿⣿⣿⣿⣿⣻⣷⣤⣤⠀⣿⣿⣿⣿⣯⣿⣿⣿⢄⣗⠀⠀⠀⠀
-    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡏⠀⢻⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀
-    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢻⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠈⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢻⣿⣿⣿⠃⢻⣿⣿⣿⠀⠀⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⣇⣼⣿⣿⡿⠀⠀⠀⢿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀⠸⣿⣿⣿⣿⣿⣿⣿⡿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⣿⣿⣿⣿⣿⣿⡿⠀⠀⠀⠀⠀⢿⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠐⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀⢹⣿⣿⣿⣿⣿⣿⡃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⣿⣿⣿⣿⣿⠁⠀⠀⠀⠀⠀⠘⣿⣿⣿⣿⣿⡿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣸⣿⣿⣿⣿⡏⠀⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⡿⢿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⣿⣿⣥⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣼⣿⣥⣾⣿⣿⣿⣿⡄⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⡻⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣾⢿⡻⣿⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀⢀⣿⣿⣿⣽⣷⣧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡴⠺⠃⢤⣣⣿⣿⣿⣿⣿⣿⣿⣿⣿⠆⠀⠀⠀⣀⣼⣿⣿⣿⣮⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-    ⠀⠀⠀⠀⠀⠀⠀⠀⣠⣾⠶⢾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿   ⣿⣿⣿⣿⣿⡯⡭⢿⡻⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-    ⠀⠀⠀⠀⠀⠀⠀⠀⠙⠛⠛⠛⠛⠛⠋⠉⠉⠉⠀⠀⠀⠀⠀⠀⠀⠀⠉⠙⢿⣿⣿⣿⣿⠿⠻⢭⣿⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⣿⣿⣟⡀⠀⠀⢈⣿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠻⣿⣷⣶⡿⠟⠊⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-    """, "green", attrs=["bold"])
+    bootsstring = ("""                                                                                                                                        
+                                ________
+                            __(_____  <|
+                            (____ / <| <|
+                            (___ /  <| L`-------.
+                            (__ /   L`--------.  \\
+                            /  `.    ^^^^^ |   \  |
+                            |     \---------'    |/
+                            |______|____________/]
+                            [_____|`-.__________]
+    """)
 
     def talisman_print():
         cprint("""
