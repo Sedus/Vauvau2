@@ -1,6 +1,6 @@
 import os
 from variables2 import *
-from termcolor import cprint, colored
+from termcolor import cprint
 from art import tprint
 from character import *
 from map import *
@@ -103,46 +103,61 @@ class UI:
                 Character.talismanbag[UI.counter] = "> " +  Character.talismanbag[UI.counter] + " <"
                 UI.navmenuprint(Character.talismanbag)
 
-    def navup(list1, list2):
+    def navigate(list1, list2, direction):
         list1[UI.counter] = list2[UI.counter]
-        UI.counter = (UI.counter - 1) % len(list1)
-        list1[UI.counter] = "> " + list1[UI.counter] + " <"
-
-    def navdown(list1, list2):
-        list1[UI.counter] = list2[UI.counter]
-        UI.counter = (UI.counter + 1) % len(list1)
+        UI.counter = (UI.counter + direction) % len(list1)
         list1[UI.counter] = "> " + list1[UI.counter] + " <"
 
     def menu_layout2():
         UI.draw()
         cprint("JELENLEGI POZÍCIÓ: " + Map.biom[Map.map[Character.pos_y][Character.pos_x]]["name"], "green", attrs=["bold"])
         UI.draw()
-        cprint("NÉV: {: <45}".format(Character.name), "green", attrs=["bold"], end=" ")
-        UI.print_colored_text(str("FEGYVER: " + Character.weapon + "\n"), weapon[Character.weapon]["rarity"])
+        cprint("NÉV:", "green", attrs=["bold"], end=" ")
+        cprint("{: <45}".format(str(Character.name)), "blue", attrs=["bold"], end=" ")
+        cprint("FEGYVER:", "green", attrs=["bold"], end=" ")
+        UI.print_colored_text(str(Character.weapon + "\n"), weapon[Character.weapon]["rarity"])
 
-        cprint("ÉLET: {: <44}".format(str(Character.HP) + "/" + str(Character.HPMAX)), "green", attrs=["bold"], end=" ")
-        UI.print_colored_text(str("VÉRT: " + Character.armor + "\n"), armor[Character.armor]["rarity"])
+        cprint("ÉLET:", "green", attrs=["bold"], end=" ")
+        cprint("{: <44}".format(str(Character.HP) + "/" + str(Character.HPMAX)), "red", end=" ")
+        cprint("VÉRT:", "green", attrs=["bold"], end=" ")
+        UI.print_colored_text(str(Character.armor + "\n"), armor[Character.armor]["rarity"])
 
-        cprint("SEBZÉS: {: <42}".format(Character.attack),"green", attrs=["bold"], end=" ")
-        UI.print_colored_text(str("SISAK: " + Character.helmet + "\n"), helmet[Character.helmet]["rarity"])
+        cprint("SEBZÉS:", "green", attrs=["bold"], end=" ")
+        cprint("{: <42}".format(str(Character.attack)), "red", end=" ")
+        cprint("SIAK:", "green", attrs=["bold"], end=" ")
+        UI.print_colored_text(str(Character.helmet + "\n"), helmet[Character.helmet]["rarity"])
 
-        cprint("PÁNCÉL: {: <42}".format(Character.defense), "green", attrs=["bold"], end=" ")
-        UI.print_colored_text(str("CIPŐ: " + Character.boots + "\n"), boots[Character.boots]["rarity"])
+        cprint("PÁNCÉL:", "green", attrs=["bold"], end=" ")
+        cprint("{: <42}".format(str(Character.defense)), "blue", attrs=["bold"], end=" ")
+        cprint("CIPŐ:", "green", attrs=["bold"], end=" ")
+        UI.print_colored_text(str(Character.boots + "\n"), boots[Character.boots]["rarity"])
 
-        cprint("GYÓGYITAL: {: <39}".format(str(Character.potion) + " darab"), "green", attrs=["bold"], end=" ")
-        UI.print_colored_text(str("TALIZMÁN: " + Character.talisman + "\n"), talisman[Character.talisman]["rarity"])
+        cprint("GYÓGYITAL:", "green", attrs=["bold"], end=" ")
+        cprint("{: <39}".format(str(Character.potion) + " darab"), "red", end=" ")
+        cprint("TALIZMÁN:", "green", attrs=["bold"], end=" ")
+        UI.print_colored_text(str(Character.talisman + "\n"), talisman[Character.talisman]["rarity"])
 
-        cprint("ELIXÍR: " + str(Character.elixir) + " darab", "green", attrs=["bold"])
-        cprint("ARANY: " + str(Character.gold) + "$", "green", attrs=["bold"])
+        cprint("ELIXÍR:", "green", attrs=["bold"], end=" ")
+        cprint("{: <39}".format(str(Character.elixir) + " darab"), "cyan", attrs=["bold"])
+        cprint("ARANY:", "green", attrs=["bold"], end=" ")
+        cprint(str(Character.gold) + "$", "yellow", attrs=["bold"])
 
     def shoplayout():
         UI.draw()
-        cprint("ÉLET: " + str(Character.HP) + "/" + str(Character.HPMAX), "green", attrs=["bold"])
-        cprint("SEBZÉS: " + str(Character.attack), "green", attrs=["bold"])
-        cprint("PÁNCÉL: " + str(Character.defense), "green", attrs=["bold"])
-        cprint("GYÓGYITAL: " + str(Character.potion) + " darab", "green", attrs=["bold"])
-        cprint("ELIXÍR: " + str(Character.elixir) + " darab", "green", attrs=["bold"])
-        cprint("ARANY: " + str(Character.gold) + "$", "green", attrs=["bold"])
+
+        items = {
+            "NÉV:": (Character.name, "blue"),
+            "ÉLET:": (str(Character.HP) + "/" + str(Character.HPMAX), "red"),
+            "SEBZÉS:": (str(Character.attack), "red"),
+            "PÁNCÉL:": (str(Character.defense), "blue"),
+            "GYÓGYITAL:": (str(Character.potion) + " darab", "red"),
+            "ELIXÍR:": (str(Character.elixir) + " darab", "cyan"),
+            "ARANY:": (str(Character.gold) + "$", "yellow")
+        }
+
+        for item, (value, color) in items.items():
+            cprint(f"{item} ", "green", attrs=["bold"], end="")
+            cprint(value, color, attrs=["bold"])
 
     def battlelayout():
         if isinstance(Enemy.selected_enemy, Orc):
@@ -167,64 +182,80 @@ class UI:
 
     def equipmentlayout():
         UI.draw()
-        cprint("FEGYVER: " + Character.weapon, "green", attrs=["bold"])
-        cprint("VÉRT: " + Character.armor, "green", attrs=["bold"])
-        cprint("SISAK: " + Character.helmet, "green", attrs=["bold"])
-        cprint("CIPŐ: " + Character.boots, "green", attrs=["bold"])
-        cprint("TALIZMÁN: " + Character.talisman, "green", attrs=["bold"])
+
+        items = {
+            "FEGYVER": (Character.weapon, weapon),
+            "VÉRT": (Character.armor, armor),
+            "SISAK": (Character.helmet, helmet),
+            "CIPŐ": (Character.boots, boots),
+            "TALIZMÁN": (Character.talisman, talisman)
+        }
+
+        for item, (character_item, item_dict) in items.items():
+            cprint(f"{item}:", "green", attrs=["bold"], end=" ")
+            UI.print_colored_text(str(character_item + "\n"), item_dict[character_item]["rarity"])
 
     def print_colored_text(text, rarity):
         if isinstance(rarity, tuple):
             for char in text:
                 color = random.choice(rarity)
-                print(colored(char, color=color), end="")
+                if (color == "red" or color == "blue"):
+                    cprint(char, color, end="")
+                else:
+                    cprint(char, color, attrs=["bold"], end="")
         else:
             color = rarity
-            print(colored(text, color=color), end="")
+            if (color == "red" or color == "blue"):
+                cprint(text, color, end="")
+            else:
+                cprint(text, color, attrs=["bold"], end="")
 
     def inequipmentlayout():
-        if variables2.equipment_type == "weapon":
-            rarity = weapon[Character.weaponbag2[UI.counter]]["rarity"]
+        equipment_type = variables2.equipment_type
+        counter = UI.counter
+
+        if equipment_type == "weapon":
+            rarity = weapon[Character.weaponbag2[counter]]["rarity"]
             UI.print_colored_text(UI.weaponstring, rarity)
-            UI.print_colored_text("\nFelszerelt tárgy:                                 Kiválasztott tárgy:\n", rarity)
-            UI.print_colored_text(str("  -" + Character.weapon + " " * (47 - len(Character.weapon)) + "  -" + Character.weaponbag2[UI.counter] + "\n"), rarity)
-            UI.print_colored_text("    -SEBZÉS: " + str(weapon[Character.weapon]["attack"]) + " " * (37 - len(str(weapon[Character.weapon]["attack"]))) + "    -SEBZÉS: " + str(weapon[Character.weaponbag2[UI.counter]]["attack"]) + "\n", rarity)
-        elif variables2.equipment_type == "armor":
-            rarity = armor[Character.armorbag2[UI.counter]]["rarity"]
+            cprint("\nFelszerelt tárgy:                                 Kiválasztott tárgy:", "green", attrs=["bold"])
+            UI.print_colored_text(f"  -{Character.weapon} {' ' * (46 - len(Character.weapon))}  -{Character.weaponbag2[counter]}\n", rarity)
+            UI.print_colored_text(f"    -SEBZÉS: {str(weapon[Character.weapon]['attack'])} {' ' * (37 - len(str(weapon[Character.weapon]['attack'])))}    -SEBZÉS: {str(weapon[Character.weaponbag2[counter]]['attack'])}\n", rarity)
+        elif equipment_type == "armor":
+            rarity = armor[Character.armorbag2[counter]]["rarity"]
             UI.print_colored_text(UI.armorstring, rarity)
-            UI.print_colored_text("\nFelszerelt tárgy:                                 Kiválasztott tárgy:\n", rarity)
-            UI.print_colored_text(str("  -" + Character.armor + " " * (47 - len(Character.armor)) + "  -" + Character.armorbag2[UI.counter] + "\n"), rarity)
-            UI.print_colored_text("    -PÁNCÉL: " + str(armor[Character.armor]["armor"]) + " " * (37 - len(str(armor[Character.armor]["armor"]))) + "    -PÁNCÉL: " + str(armor[Character.armorbag2[UI.counter]]["armor"]) + "\n", rarity)
-        elif variables2.equipment_type == "helmet":
-            rarity = helmet[Character.helmetbag2[UI.counter]]["rarity"]
+            cprint("\nFelszerelt tárgy:                                 Kiválasztott tárgy:", "green", attrs=["bold"])
+            UI.print_colored_text(f"  -{Character.armor} {' ' * (46 - len(Character.armor))}  -{Character.armorbag2[counter]}\n", rarity)
+            UI.print_colored_text(f"    -PÁNCÉL: {str(armor[Character.armor]['armor'])} {' ' * (37 - len(str(armor[Character.armor]['armor'])))}    -PÁNCÉL: {str(armor[Character.armorbag2[counter]]['armor'])}\n", rarity)
+        elif equipment_type == "helmet":
+            rarity = helmet[Character.helmetbag2[counter]]["rarity"]
             UI.print_colored_text(UI.helmetstring, rarity)
-            UI.print_colored_text("\nFelszerelt tárgy:                                 Kiválasztott tárgy:\n", rarity)
-            UI.print_colored_text(str("  -" + Character.helmet + " " * (47 - len(Character.helmet)) + "  -" + Character.helmetbag2[UI.counter] + "\n"), rarity)
-            UI.print_colored_text("    -HP: " + str(helmet[Character.helmet]["HP"]) + " " * (41 - len(str(helmet[Character.helmet]["HP"]))) + "    -HP: " + str(helmet[Character.helmetbag2[UI.counter]]["HP"]) + "\n", rarity)
-        elif variables2.equipment_type == "boots":
-            rarity = boots[Character.bootsbag2[UI.counter]]["rarity"]
+            cprint("\nFelszerelt tárgy:                                 Kiválasztott tárgy:", "green", attrs=["bold"])
+            UI.print_colored_text(f"  -{Character.helmet} {' ' * (46 - len(Character.helmet))}  -{Character.helmetbag2[counter]}\n", rarity)
+            UI.print_colored_text(f"    -HP: {str(helmet[Character.helmet]['HP'])} {' ' * (41 - len(str(helmet[Character.helmet]['HP'])))}    -HP: {str(helmet[Character.helmetbag2[counter]]['HP'])}\n", rarity)
+        elif equipment_type == "boots":
+            rarity = boots[Character.bootsbag2[counter]]["rarity"]
             UI.print_colored_text(UI.bootsstring, rarity)
-            UI.print_colored_text("\nFelszerelt tárgy:                                 Kiválasztott tárgy:\n", rarity)
-            UI.print_colored_text(str("  -" + Character.boots + " " * (47 - len(Character.boots)) + "  -" + Character.bootsbag2[UI.counter] + "\n"), rarity)
-            UI.print_colored_text("    -HP: " + str(boots[Character.boots]["HP"]) + " " * (41 - len(str(boots[Character.boots]["HP"]))) + "    -HP: " + str(boots[Character.bootsbag2[UI.counter]]["HP"]) + "\n", rarity)
-        elif variables2.equipment_type == "talisman":
-            rarity = talisman[Character.talismanbag2[UI.counter]]["rarity"]
+            cprint("\nFelszerelt tárgy:                                 Kiválasztott tárgy:", "green", attrs=["bold"])
+            UI.print_colored_text(f"  -{Character.boots} {' ' * (46 - len(Character.boots))}  -{Character.bootsbag2[counter]}\n", rarity)
+            UI.print_colored_text(f"    -HP: {str(boots[Character.boots]['HP'])} {' ' * (41 - len(str(boots[Character.boots]['HP'])))}    -HP: {str(boots[Character.bootsbag2[counter]]['HP'])}\n", rarity)
+        elif equipment_type == "talisman":
+            rarity = talisman[Character.talismanbag2[counter]]["rarity"]
             UI.print_colored_text(UI.talismanstring, rarity)
-            UI.print_colored_text("\nFelszerelt tárgy:                                 Kiválasztott tárgy:\n", rarity)
-            UI.print_colored_text(str("  -" + Character.talisman + " " * (47 - len(Character.talisman)) + "  -" + Character.talismanbag2[UI.counter] + "\n"), rarity)
-            UI.print_colored_text("    -SEBZÉS: " + str(talisman[Character.talisman]["attack"]) + " " * (37 - len(str(talisman[Character.talisman]["attack"]))) + "    -SEBZÉS: " + str(talisman[Character.talismanbag2[UI.counter]]["attack"]) + "\n", rarity)
-            UI.print_colored_text("    -PÁNCÉL: " + str(talisman[Character.talisman]["armor"]) + " " * (37 - len(str(talisman[Character.talisman]["armor"]))) + "    -PÁNCÉL: " + str(talisman[Character.talismanbag2[UI.counter]]["armor"]) + "\n", rarity)
-            UI.print_colored_text("    -HP: " + str(talisman[Character.talisman]["HP"]) + " " * (41 - len(str(talisman[Character.talisman]["HP"]))) + "    -HP: " + str(talisman[Character.talismanbag2[UI.counter]]["HP"]) + "\n", rarity)
+            cprint("\nFelszerelt tárgy:                                 Kiválasztott tárgy:", "green", attrs=["bold"])
+            UI.print_colored_text(f"  -{Character.talisman} {' ' * (46 - len(Character.talisman))}  -{Character.talismanbag2[counter]}\n", rarity)
+            UI.print_colored_text(f"    -SEBZÉS: {str(talisman[Character.talisman]['attack'])} {' ' * (37 - len(str(talisman[Character.talisman]['attack'])))}    -SEBZÉS: {str(talisman[Character.talismanbag2[counter]]['attack'])}\n", rarity)
+            UI.print_colored_text(f"    -PÁNCÉL: {str(talisman[Character.talisman]['armor'])} {' ' * (37 - len(str(talisman[Character.talisman]['armor'])))}    -PÁNCÉL: {str(talisman[Character.talismanbag2[counter]]['armor'])}\n", rarity)
+            UI.print_colored_text(f"    -HP: {str(talisman[Character.talisman]['HP'])} {' ' * (41 - len(str(talisman[Character.talisman]['HP'])))}    -HP: {str(talisman[Character.talismanbag2[counter]]['HP'])}\n", rarity)
 
     def inequipmentup(list1, list2):
         os.system("cls")
-        UI.navup(list1, list2)
+        UI.navigate(list1, list2, -1)
         UI.inequipmentlayout()
         UI.navmenuprint(list1)
     
     def inequipmentdown(list1, list2):
         os.system("cls")
-        UI.navdown(list1, list2)
+        UI.navigate(list1, list2, 1)
         UI.inequipmentlayout()
         UI.navmenuprint(list1)
 
@@ -249,7 +280,7 @@ class UI:
 
     def start():
         tprint("vauvau    2", "tarty1")
-        tprint("PRE-ALPHA    0.5.0", "tarty1")
+        tprint("PRE-ALPHA    0.6.0", "tarty1")
         cprint("NYOMJ MEG BÁRMIT AZ INDULÁSHOZ!", "green", attrs=["bold"])
         input (">")
         UI.switchstate("menu")
@@ -351,35 +382,35 @@ class UI:
                                 `.__.'
     """)
 
-    bootsstring = ("""                                                                                                                                        
-                                ________
-                            __(_____  <|
-                            (____ / <| <|
-                            (___ /  <| L`-------.
-                            (__ /   L`--------.  \\
-                            /  `.    ^^^^^ |   \  |
-                            |     \---------'    |/
-                            |______|____________/]
-                            [_____|`-.__________]
+    bootsstring = ("""
+                            ________
+                        __(_____  <|
+                        (____ / <| <|
+                        (___ /  <| L`-------.
+                        (__ /   L`--------.  \\
+                        /  `.    ^^^^^ |   \  |
+                        |     \---------'    |/
+                        |______|____________/]
+                        [_____|`-.__________]
     """)
 
     talismanstring = ("""
-                                 _______________
-                                |@@@@|     |####|
-                                |@@@@|     |####|
-                                |@@@@|     |####|
-                                \@@@@|     |####/
-                                 \@@@|     |###/
-                                  `@@|_____|##'
-                                       (O)
-                                    .-'''''-.
-                                  .'  * * *  `.
-                                 :  *       *  :
-                                : ~           ~ :
-                                : ~           ~ :
-                                 :  *       *  :
-                                  `.  * * *  .'
-                                    `-.....-'
+                             _______________
+                            |@@@@|     |####|
+                            |@@@@|     |####|
+                            |@@@@|     |####|
+                            \@@@@|     |####/
+                             \@@@|     |###/
+                              `@@|_____|##'
+                                   (O)
+                                .-'''''-.
+                              .'  * * *  `.
+                             :  *       *  :
+                            : ~           ~ :
+                            : ~           ~ :
+                             :  *       *  :
+                              '.  * * *  .'
+                                '-.....-'
     """)
 
 UI.state = None

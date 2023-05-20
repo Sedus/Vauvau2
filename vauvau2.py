@@ -21,11 +21,11 @@ while True:
 
         if keypressed == "up":
             os.system("cls")
-            UI.navup(UI.menu, UI.menu2)
+            UI.navigate(UI.menu, UI.menu2, -1)
             UI.navmenuprint(UI.menu)
         if keypressed == "down":
             os.system("cls")
-            UI.navdown(UI.menu, UI.menu2)
+            UI.navigate(UI.menu, UI.menu2, 1)
             UI.navmenuprint(UI.menu)
         if keypressed == "enter":
             if UI.counter == 0: #ÚJ JÁTÉK
@@ -50,13 +50,13 @@ while True:
             os.system("cls")
             UI.print_map(Map.map2)
             UI.menu_layout2()
-            UI.navup(UI.play, UI.play2)
+            UI.navigate(UI.play, UI.play2, -1)
             UI.navmenuprint(UI.play)
         if keypressed == "down":
             os.system("cls")
             UI.print_map(Map.map2)
             UI.menu_layout2()
-            UI.navdown(UI.play, UI.play2)
+            UI.navigate(UI.play, UI.play2, 1)
             UI.navmenuprint(UI.play)
         if keypressed == "enter":
             if UI.counter == 0: #MENTÉS ÉS KILÉPÉS
@@ -114,12 +114,12 @@ while True:
         
         if keypressed == "up":
             os.system("cls")
-            UI.navup(UI.shop, UI.shop2)
+            UI.navigate(UI.shop, UI.shop2, -1)
             UI.shoplayout()
             UI.navmenuprint(UI.shop)
         if keypressed == "down":
             os.system("cls")
-            UI.navdown(UI.shop, UI.shop2)
+            UI.navigate(UI.shop, UI.shop2, 1)
             UI.shoplayout()
             UI.navmenuprint(UI.shop)
         if keypressed == "enter":
@@ -149,12 +149,12 @@ while True:
         
         if keypressed == "up":
             os.system("cls")
-            UI.navup(UI.battle, UI.battle2)
+            UI.navigate(UI.battle, UI.battle2, -1)
             UI.battlelayout()
             UI.navmenuprint(UI.battle)
         if keypressed == "down":
             os.system("cls")
-            UI.navdown(UI.battle, UI.battle2)
+            UI.navigate(UI.battle, UI.battle2, 1)
             UI.battlelayout()
             UI.navmenuprint(UI.battle)
         if keypressed == "enter":
@@ -183,12 +183,12 @@ while True:
         
         if keypressed == "up":
             os.system("cls")
-            UI.navup(UI.equipment, UI.equipment2)
+            UI.navigate(UI.equipment, UI.equipment2, -1)
             UI.equipmentlayout()
             UI.navmenuprint(UI.equipment)
         if keypressed == "down":
             os.system("cls")
-            UI.navdown(UI.equipment, UI.equipment2)
+            UI.navigate(UI.equipment, UI.equipment2, 1)
             UI.equipmentlayout()
             UI.navmenuprint(UI.equipment)
         if keypressed == "enter":
