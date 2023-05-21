@@ -30,7 +30,7 @@ class UI:
             os.system("cls")
             UI.menu[UI.counter] = "> " + UI.menu[UI.counter] + " <"
             UI.navmenuprint(UI.menu)
-        if hova == "play":
+        elif hova == "play":
             Character.stat_calc(Character)
             UI.counter = 0
             UI.state = hova
@@ -40,7 +40,7 @@ class UI:
             UI.menu_layout2()
             UI.play[UI.counter] = "> " + UI.play[UI.counter] + " <"
             UI.navmenuprint(UI.play)
-        if hova == "shop":
+        elif hova == "shop":
             UI.counter = 0
             UI.state = hova
             UI.shop = UI.shop2.copy()
@@ -48,7 +48,7 @@ class UI:
             UI.shoplayout()
             UI.shop[UI.counter] = "> " + UI.shop[UI.counter] + " <"
             UI.navmenuprint(UI.shop)
-        if hova == "battle":
+        elif hova == "battle":
             UI.counter = 0
             UI.state = hova
             UI.battle = UI.battle2.copy()
@@ -57,7 +57,7 @@ class UI:
             UI.battlelayout()
             UI.battle[UI.counter] = "> " + UI.battle[UI.counter] + " <"
             UI.navmenuprint(UI.battle)
-        if hova == "equipment":
+        elif hova == "equipment":
             UI.counter = 0
             UI.state = hova
             UI.equipment = UI.equipment2.copy()
@@ -66,7 +66,7 @@ class UI:
             UI.equipmentlayout()
             UI.equipment[UI.counter] = "> " + UI.equipment[UI.counter] + " <"
             UI.navmenuprint(UI.equipment)
-        if hova == "inequipment":
+        elif hova == "inequipment":
             Character.weaponbag = [i[1] for i in sorted(((i[1]["attack"],i[0]) for i in weapon.items() if i[0] in set(Character.weaponbag)))]
             Character.weaponbag2 = [i[1] for i in sorted(((i[1]["attack"],i[0]) for i in weapon.items() if i[0] in set(Character.weaponbag2)))]
             Character.armorbag = [i[1] for i in sorted(((i[1]["armor"],i[0]) for i in armor.items() if i[0] in set(Character.armorbag)))]
@@ -83,25 +83,26 @@ class UI:
             os.system("cls")
             UI.inequipmentlayout()
             if variables2.equipment_type == "weapon":
-                Character.weaponbag =  Character.weaponbag2.copy()
-                Character.weaponbag[UI.counter] = "> " +  Character.weaponbag[UI.counter] + " <"
+                Character.weaponbag = Character.weaponbag2.copy()
+                Character.weaponbag[UI.counter] = "> " + Character.weaponbag[UI.counter] + " <"
                 UI.navmenuprint(Character.weaponbag)
             elif variables2.equipment_type == "armor":
-                Character.armorbag =  Character.armorbag2.copy()
-                Character.armorbag[UI.counter] = "> " +  Character.armorbag[UI.counter] + " <"
+                Character.armorbag = Character.armorbag2.copy()
+                Character.armorbag[UI.counter] = "> " + Character.armorbag[UI.counter] + " <"
                 UI.navmenuprint(Character.armorbag)
             elif variables2.equipment_type == "helmet":
-                Character.helmetbag =  Character.helmetbag2.copy()
-                Character.helmetbag[UI.counter] = "> " +  Character.helmetbag[UI.counter] + " <"
+                Character.helmetbag = Character.helmetbag2.copy()
+                Character.helmetbag[UI.counter] = "> " + Character.helmetbag[UI.counter] + " <"
                 UI.navmenuprint(Character.helmetbag)
             elif variables2.equipment_type == "boots":
-                Character.bootsbag =  Character.bootsbag2.copy()
-                Character.bootsbag[UI.counter] = "> " +  Character.bootsbag[UI.counter] + " <"
+                Character.bootsbag = Character.bootsbag2.copy()
+                Character.bootsbag[UI.counter] = "> " + Character.bootsbag[UI.counter] + " <"
                 UI.navmenuprint(Character.bootsbag)
             elif variables2.equipment_type == "talisman":
-                Character.talismanbag =  Character.talismanbag2.copy()
-                Character.talismanbag[UI.counter] = "> " +  Character.talismanbag[UI.counter] + " <"
+                Character.talismanbag = Character.talismanbag2.copy()
+                Character.talismanbag[UI.counter] = "> " + Character.talismanbag[UI.counter] + " <"
                 UI.navmenuprint(Character.talismanbag)
+
 
     def navigate(list1, list2, direction):
         list1[UI.counter] = list2[UI.counter]
@@ -268,13 +269,13 @@ class UI:
         for result in variables2.loglist:
             cprint("    " + str(result), "magenta", attrs=["bold"])
     
-    def navmenuprint(list):
+    def navmenuprint(lst):
         UI.draw()
-        for i in list:
-            if i == list[UI.counter]:
-                cprint (i, "white", "on_magenta", attrs=["bold"])
-            else:
-                cprint (i, "green", attrs=["bold"])
+        for i in lst:
+            color = "white" if i == lst[UI.counter] else "green"
+            bg_color = "on_magenta" if i == lst[UI.counter] else None
+            attrs = ["bold"]
+            cprint(i, color, bg_color, attrs=attrs)
         UI.draw()
         UI.logprint()
 
@@ -284,9 +285,6 @@ class UI:
         cprint("NYOMJ MEG BÁRMIT AZ INDULÁSHOZ!", "green", attrs=["bold"])
         input (">")
         UI.switchstate("menu")
-    
-    def rules():
-        cprint("\nFel-le nyíllal tudsz navigálni." + "\n" + "Enter lenyomásával kiválasztod az adott utasítást.", "green", attrs=["bold"])
 
     def tiledraw():
         icon =  Map.biom [Map.map[Character.pos_y][Character.pos_x]] ["icon"]
