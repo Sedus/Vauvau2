@@ -10,7 +10,6 @@ from map import *
 from variables2 import *
 
 UI.start()
-Map.createmap()
 
 while True:
     while UI.state == "menu": #ÚJ JÁTÉK - JÁTÉK BETÖLTÉSE - SZABÁLYOK - KILÉPÉS
@@ -25,9 +24,26 @@ while True:
             
         if keypressed == "enter":
             if UI.counter == 0: #ÚJ JÁTÉK
+                Map.createmap()
                 UI.switchstate("play")
             if UI.counter == 1: #JÁTÉK BETÖLTÉSE
-                pass
+                f = open("save.txt", "r", encoding='utf-8')
+                load_list = f.readlines()
+                Character.pos_x = int(load_list[0][:-1])
+                Character.pos_y = int(load_list[1][:-1])
+                Character.name = load_list[2][:-1]
+                Character.HPMAX = int(load_list[3][:-1])
+                Character.gold = int(load_list[4][:-1])
+                Character.potion = int(load_list[5][:-1])
+                Character.elixir = int(load_list[6][:-1])
+                Character.weapon = load_list[7][:-1]
+                Character.armor = load_list[8][:-1]
+                Character.helmet = load_list[9][:-1]
+                Character.boots = load_list[10][:-1]
+                Character.talisman = load_list[11][:-1]
+                variables2.loglist.insert(0, "Bejelentkeztél " + Character.name + " felhasználóval!")
+                Map.createmap()
+                UI.switchstate("play")
             if UI.counter == 2: #SZABÁLYOK
                 pass
             if UI.counter == 3: #KILÉPÉS
@@ -47,6 +63,7 @@ while True:
 
         if keypressed == "enter":
             if UI.counter == 0:
+                Character.save()
                 quit()
             elif UI.counter == 1 and Character.pos_y > 0:
                 navi.moveup()
@@ -57,9 +74,9 @@ while True:
             elif UI.counter == 4 and Character.pos_x > 0:
                 navi.moveleft()
             elif UI.counter == 5:
-                Character.usepotion()
+                Character.use_potion(Character)
             elif UI.counter == 6:
-                Character.useelixir()
+                Character.use_elixir(Character)
             elif UI.counter == 7:
                 UI.switchstate("equipment")
             elif UI.counter == 8:
@@ -133,12 +150,12 @@ while True:
                     UI.battlelayout()
                     UI.navmenuprint(UI.battle)
             if UI.counter == 1:
-                Character.usepotion()
+                Character.use_potion(Character)
                 os.system("cls")
                 UI.battlelayout()
                 UI.navmenuprint(UI.battle)
             if UI.counter == 2:
-                Character.useelixir()
+                Character.use_elixir(Character)
                 os.system("cls")
                 UI.battlelayout()
                 UI.navmenuprint(UI.battle)

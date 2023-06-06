@@ -37,26 +37,49 @@ class Character:
         self.HP = base_HP + helmet[self.helmet]["HP"] + boots[self.boots]["HP"] + talisman[self.talisman]["HP"]
         self.attack = base_attack + weapon[self.weapon]["attack"] + talisman[self.talisman]["attack"]
     
-    def heal(amount):
-        Character.HP += amount
-        variables2.loglist.insert(0, Character.name + " élete fel lett töltve " + str(Character.HP) + "-re!")
+    def heal(self, amount):
+        self.HP += amount
+        variables2.loglist.insert(0, f"{self.name} élete fel lett töltve {self.HP}-re!")
 
-    def usepotion():
-        if Character.potion > 0:
-            Character.potion -= 1
-            if Character.HP + 30 > Character.HPMAX:
-                Character.heal(Character.HPMAX - Character.HP)
+    def use_potion(self):
+        if self.potion > 0:
+            self.potion -= 1
+            if self.HP + 30 > self.HPMAX:
+                self.heal(self, self.HPMAX - self.HP)
             else:
-                Character.heal(30)
+                self.heal(self, 30)
         else:
             variables2.loglist.insert(0, "Nincs gyógyitalod!")
 
-    def useelixir():
-        if Character.elixir > 0:
-            Character.elixir -= 1
-            Character.heal(Character.HPMAX - Character.HP)
+    def use_elixir(self):
+        if self.elixir > 0:
+            self.elixir -= 1
+            self.heal(self, self.HPMAX - self.HP)
         else:
             variables2.loglist.insert(0, "Nincs elixíred!")
+        
+    def save():
+        list = [
+            str(Character.pos_x),
+            str(Character.pos_y),
+            Character.name,
+            str(Character.HPMAX),
+            str(Character.gold),
+            str(Character.potion),
+            str(Character.elixir),
+            Character.weapon,
+            Character.armor,
+            Character.helmet,
+            Character.boots,
+            Character.talisman
+        ]
+
+        f = open("save.txt", "w", encoding='utf-8')
+
+        for item in list:
+            f.write(item + "\n")
+        f.close()
+
 
 Character.pos_x = 0
 Character.pos_y = 0
