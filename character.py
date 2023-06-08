@@ -59,7 +59,7 @@ class Character:
             variables2.loglist.insert(0, "Nincs elixíred!")
         
     def save():
-        list = [
+        data = [
             str(Character.pos_x),
             str(Character.pos_y),
             Character.name,
@@ -74,11 +74,27 @@ class Character:
             Character.talisman
         ]
 
-        f = open("save.txt", "w", encoding='utf-8')
+        with open("save.txt", "w", encoding='utf-8') as f:
+            f.write("\n".join(data))
+    
+    def load():
+        with open("save.txt", "r", encoding='utf-8') as f:
+            load_list = [line.strip() for line in f.readlines()]
 
-        for item in list:
-            f.write(item + "\n")
-        f.close()
+        Character.pos_x = int(load_list[0])
+        Character.pos_y = int(load_list[1])
+        Character.name = load_list[2]
+        Character.HPMAX = int(load_list[3])
+        Character.gold = int(load_list[4])
+        Character.potion = int(load_list[5])
+        Character.elixir = int(load_list[6])
+        Character.weapon = load_list[7]
+        Character.armor = load_list[8]
+        Character.helmet = load_list[9]
+        Character.boots = load_list[10]
+        Character.talisman = load_list[11]
+
+        variables2.loglist.insert(0, "Bejelentkeztél " + Character.name + " felhasználóval!")
 
 
 Character.pos_x = 0

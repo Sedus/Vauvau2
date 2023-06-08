@@ -27,21 +27,7 @@ while True:
                 Map.createmap()
                 UI.switchstate("play")
             if UI.counter == 1: #JÁTÉK BETÖLTÉSE
-                f = open("save.txt", "r", encoding='utf-8')
-                load_list = f.readlines()
-                Character.pos_x = int(load_list[0][:-1])
-                Character.pos_y = int(load_list[1][:-1])
-                Character.name = load_list[2][:-1]
-                Character.HPMAX = int(load_list[3][:-1])
-                Character.gold = int(load_list[4][:-1])
-                Character.potion = int(load_list[5][:-1])
-                Character.elixir = int(load_list[6][:-1])
-                Character.weapon = load_list[7][:-1]
-                Character.armor = load_list[8][:-1]
-                Character.helmet = load_list[9][:-1]
-                Character.boots = load_list[10][:-1]
-                Character.talisman = load_list[11][:-1]
-                variables2.loglist.insert(0, "Bejelentkeztél " + Character.name + " felhasználóval!")
+                Character.load()
                 Map.createmap()
                 UI.switchstate("play")
             if UI.counter == 2: #SZABÁLYOK
@@ -88,8 +74,8 @@ while True:
                 UI.menu_layout2()
                 UI.navmenuprint(UI.play)
             if UI.counter in [1, 2, 3, 4]:
-                battle.spawnenemychance()
-
+                if Map.biom[Map.map[Character.pos_y][Character.pos_x]]["spawn_enemy"]:
+                    battle.spawnenemychance()
 
     while UI.state == "shop":
         keypressed = keyboard.read_key()

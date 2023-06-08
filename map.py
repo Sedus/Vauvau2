@@ -60,6 +60,6 @@ Map.biom = {
         "icon": "¤"},
     "küldetés": {
         "name": "KÜLDETÉS",
-        "spawn_enemy": True,
+        "spawn_enemy": False,
         "icon": "@"},
 }
