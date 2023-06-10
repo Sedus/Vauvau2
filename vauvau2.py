@@ -76,6 +76,10 @@ while True:
             if UI.counter in [1, 2, 3, 4]:
                 if Map.biom[Map.map[Character.pos_y][Character.pos_x]]["spawn_enemy"]:
                     battle.spawnenemychance()
+                if Map.biom[Map.map[Character.pos_y][Character.pos_x]]["name"] == "BÉLA":
+                    variables2.mission = True
+                if Map.biom[Map.map[Character.pos_y][Character.pos_x]]["name"] == "KÜLDETÉS" and variables2.mission == True:
+                    UI.switchstate("mission1")
 
     while UI.state == "shop":
         keypressed = keyboard.read_key()
@@ -236,3 +240,37 @@ while True:
                 UI.inequipmentlayout()
                 UI.navmenuprint(Character.talismanbag)
             UI.switchstate("equipment")
+    
+    while UI.state == "mission1":
+        keypressed = keyboard.read_key()
+        while keyboard.is_pressed("down"): pass
+        while keyboard.is_pressed("up"): pass
+        while keyboard.is_pressed("enter"): pass
+        
+        if keypressed == "up":
+            os.system("cls")
+            UI.navigate(UI.mission1, UI.mission1_2, -1)
+            UI.mission1_layout()
+            UI.navmenuprint(UI.mission1, log_print=False)
+        if keypressed == "down":
+            os.system("cls")
+            UI.navigate(UI.mission1, UI.mission1_2, 1)
+            UI.mission1_layout()
+            UI.navmenuprint(UI.mission1, log_print=False)
+        if keypressed == "enter":
+            if UI.counter == 0:
+                UI.typewriter("meghaltál", 0.05)
+                Character.pos_x = 0
+                Character.pos_y = 0
+                Map.createmap()
+                variables2.loglist.clear()
+                variables2.loglist.insert(0, "Sajnos nem sikerült teljesíteni az 1. küldetést!")
+                UI.switchstate("play")
+            if UI.counter == 1:
+                UI.typewriter("jó döntés", 0.05)
+                Character.pos_x = 0
+                Character.pos_y = 0
+                Map.createmap()
+                variables2.loglist.clear()
+                variables2.loglist.insert(0, "Gratulálok! Sikeresen teljesítetted az 1. küldetést!")
+                UI.switchstate("play")

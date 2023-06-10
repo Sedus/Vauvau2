@@ -12,12 +12,13 @@ class Map:
         self.biom = biom
 
     def createmap():
+        for row in Map.map2:
+            for i in range(len(row)):
+                row[i] = ' '
         for number5 in range(5):
             innerlist = []
             for number7 in range(7):
-                abc = listToString(random.choices(Map.tiles))
-                #abc = "bolt"
-                #abc = "erdő"
+                abc = listToString(random.choices(Map.tiles2))
                 innerlist.append(abc)
             Map.map.append(innerlist)
         Map.len_y = len(Map.map)-1
@@ -27,12 +28,14 @@ class Map:
 Map.len_x = 0
 Map.len_y = 0
 Map.tiles = ["síkság", "erdő", "híd", "hegység", "bolt", "béla", "küldetés"]
+Map.tiles2 = ["küldetés"]
 Map.map = []
 Map.map2 = [[' ', ' ', ' ', ' ', ' ', ' ', ' '],
         [' ', ' ', ' ', ' ', ' ', ' ', ' '],
         [' ', ' ', ' ', ' ', ' ', ' ', ' '],
         [' ', ' ', ' ', ' ', ' ', ' ', ' '],
         [' ', ' ', ' ', ' ', ' ', ' ', ' ']]
+
 Map.biom = {
     "síkság": {
         "name": "SÍKSÁG",
